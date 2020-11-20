@@ -3,8 +3,10 @@ namespace SpriteKind {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     CannonBall = sprites.createProjectileFromSprite(img`
-        b 
-        `, Cannon, -100, -90)
+        b d 
+        b b 
+        `, Ship, BallXVelocity, BallYVelocity)
+    CannonBall.z = 2
 })
 controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     Cannon.destroy()
@@ -338,9 +340,11 @@ controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Re
 controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
     Cannon.destroy()
     if (Degrees < 180) {
-        Degrees += 30
+        Degrees += 15
     }
     if (Degrees == 0) {
+        BallYVelocity = 0
+        BallXVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -364,6 +368,8 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
             .........ccbbccbbcc..........
             `, SpriteKind.Cannon)
     } else if (Degrees == 15) {
+        BallYVelocity = -15
+        BallXVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -387,6 +393,8 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
             .........ccbbccbbcc..........
             `, SpriteKind.Cannon)
     } else if (Degrees == 30) {
+        BallYVelocity = -30
+        BallXVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -410,6 +418,8 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
             .........ccbbccbbcc..........
             `, SpriteKind.Cannon)
     } else if (Degrees == 45) {
+        BallYVelocity = -45
+        BallXVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -433,6 +443,8 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
             .........ccbbccbbcc..........
             `, SpriteKind.Cannon)
     } else if (Degrees == 60) {
+        BallYVelocity = -60
+        BallXVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -479,6 +491,8 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
             .........ccbbccbbcc..........
             `, SpriteKind.Cannon)
     } else if (Degrees == 90) {
+        BallXVelocity = 0
+        BallYVelocity = -50
         Cannon = sprites.create(img`
             .............................
             .............................
@@ -665,10 +679,13 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
     }
 })
 let CannonBall: Sprite = null
+let BallYVelocity = 0
+let BallXVelocity = 0
 let Cannon: Sprite = null
 let Degrees = 0
-scene.setBackgroundColor(9)
-let Ship = sprites.create(img`
+let Ship: Sprite = null
+scene.setBackgroundColor(8)
+Ship = sprites.create(img`
     ..........cccc.............
     .........cbccbc............
     ........cbcddcbc...........
@@ -685,6 +702,7 @@ let Ship = sprites.create(img`
     ccbbbbbbbbbbbbbbbbbbbcc....
     .ccccccccccccccccccccc.....
     `, SpriteKind.Player)
+scene.cameraFollowSprite(Ship)
 controller.player1.moveSprite(Ship)
 Degrees = 0
 Cannon = sprites.create(img`
@@ -709,6 +727,11 @@ Cannon = sprites.create(img`
     .........cbbcddcbbc..........
     .........ccbbccbbcc..........
     `, SpriteKind.Cannon)
+Cannon.z = 5
+Ship.z = 4
+BallXVelocity = -50
+BallYVelocity = 0
+let CannonPosition = 0
 game.onUpdate(function () {
     Cannon.setPosition(Ship.x - 1, Ship.top + -3)
 })
