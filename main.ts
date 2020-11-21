@@ -1145,14 +1145,20 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     CannonsEast()
 })
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
-    if (ShipDirection == 0) {
-        Fire_Cannons_North()
-    } else if (ShipDirection == 1) {
-        Fire_Cannons_East()
-    } else if (ShipDirection == 2) {
-        Fire_Cannons_South()
-    } else {
-        Fire_Cannons_West()
+    if (game.runtime() > ReloadCannon + 1000) {
+        ReloadCannon = game.runtime()
+        if (ShipDirection == 0) {
+            Fire_Cannons_North()
+        } else if (ShipDirection == 1) {
+            Fire_Cannons_East()
+        } else if (ShipDirection == 2) {
+            Fire_Cannons_South()
+        } else {
+            Fire_Cannons_West()
+        }
+        for (let value of sprites.allOfKind(SpriteKind.Projectile)) {
+            value.startEffect(effects.fire, 50)
+        }
     }
 })
 function OrientCannons_North () {
@@ -1341,31 +1347,28 @@ function Fire_Cannons_West () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, cannon1, -100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
+            `, cannon2, -100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 100, 0)
+            `, cannon3, 0, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, -100, 0)
+            `, cannon4, 0, -100)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, cannon1, -100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
-    }
-    for (let value of sprites.allOfKind(SpriteKind.Projectile)) {
-        value.startEffect(effects.fire, 100)
+            `, cannon2, -100, 60)
     }
 }
 function OrientCannons_South () {
@@ -1428,31 +1431,32 @@ function Fire_Cannons_East () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, cannon1, 100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
+            `, cannon2, 100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 100, 0)
+            `, cannon3, 0, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, -100, 0)
+            `, cannon4, 0, 100)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, cannon1, 100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
+            `, cannon2, 100, 60)
     }
 }
 let RowBoat: Sprite = null
+let ReloadCannon = 0
 let CannonBall: Sprite = null
 let MiniMap: Sprite = null
 let myMinimap: minimap.Minimap = null
@@ -1567,7 +1571,7 @@ tiles.setTilemap(tiles.createTilemap(hex`640064000202020202020202020202020202020
     ....................................................................................................
     `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2], TileScale.Sixteen))
 ShipDirection = 0
-Cannon_Count = 5
+Cannon_Count = 2
 Ship = sprites.create(img`
     ...........ee...........
     ..........eeee..........
