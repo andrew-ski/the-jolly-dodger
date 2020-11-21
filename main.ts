@@ -698,6 +698,112 @@ function CannonsNorth () {
         cannon2.z = 6
     }
 }
+function CannonsWest () {
+    for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
+        value.destroy()
+    }
+    if (Cannon_Count == 5) {
+        cannon1 = sprites.create(img`
+            b b . . e e 
+            b b b e e e 
+            . b b b e 4 
+            . e b b b f 
+            e e e b f f 
+            e e 4 f f e 
+            `, SpriteKind.Cannon)
+        cannon2 = sprites.create(img`
+            e e 4 f f e 
+            e e e b f f 
+            . e b b b f 
+            . b b b e 4 
+            b b b e e e 
+            b b . . e e 
+            `, SpriteKind.Cannon)
+        cannon3 = sprites.create(img`
+            f e e f 
+            f f f f 
+            4 b b 4 
+            e b b e 
+            . b b . 
+            . b b . 
+            `, SpriteKind.Cannon)
+        cannon4 = sprites.create(img`
+            . b b . 
+            . b b . 
+            e b b e 
+            4 b b 4 
+            f f f f 
+            f e e f 
+            `, SpriteKind.Cannon)
+        cannon5 = sprites.create(img`
+            f f 4 e . . 
+            e f b b b b 
+            e f b b b b 
+            f f 4 e . . 
+            `, SpriteKind.Cannon)
+        cannon1.z = 6
+        cannon2.z = 6
+        cannon3.z = 6
+        cannon4.z = 6
+        cannon5.z = 6
+    } else if (Cannon_Count == 4) {
+        cannon1 = sprites.create(img`
+            b b . . e e 
+            b b b e e e 
+            . b b b e 4 
+            . e b b b f 
+            e e e b f f 
+            e e 4 f f e 
+            `, SpriteKind.Cannon)
+        cannon2 = sprites.create(img`
+            e e 4 f f e 
+            e e e b f f 
+            . e b b b f 
+            . b b b e 4 
+            b b b e e e 
+            b b . . e e 
+            `, SpriteKind.Cannon)
+        cannon3 = sprites.create(img`
+            f e e f 
+            f f f f 
+            4 b b 4 
+            e b b e 
+            . b b . 
+            . b b . 
+            `, SpriteKind.Cannon)
+        cannon4 = sprites.create(img`
+            . b b . 
+            . b b . 
+            e b b e 
+            4 b b 4 
+            f f f f 
+            f e e f 
+            `, SpriteKind.Cannon)
+        cannon1.z = 6
+        cannon2.z = 6
+        cannon3.z = 6
+        cannon4.z = 6
+    } else {
+        cannon1 = sprites.create(img`
+            b b . . e e 
+            b b b e e e 
+            . b b b e 4 
+            . e b b b f 
+            e e e b f f 
+            e e 4 f f e 
+            `, SpriteKind.Cannon)
+        cannon2 = sprites.create(img`
+            e e 4 f f e 
+            e e e b f f 
+            . e b b b f 
+            . b b b e 4 
+            b b b e e e 
+            b b . . e e 
+            `, SpriteKind.Cannon)
+        cannon1.z = 6
+        cannon2.z = 6
+    }
+}
 function CannonsSouth () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
         value.destroy()
@@ -801,6 +907,7 @@ function CannonsSouth () {
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = 3
     OrientShip()
+    CannonsWest()
 })
 function CannonsEast () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
@@ -1045,7 +1152,7 @@ controller.A.onEvent(ControllerButtonEvent.Released, function () {
     } else if (ShipDirection == 2) {
         Fire_Cannons_South()
     } else {
-    	
+        Fire_Cannons_West()
     }
 })
 function OrientCannons_North () {
@@ -1208,6 +1315,59 @@ function rowBoat () {
     true
     )
 }
+function Fire_Cannons_West () {
+    if (Cannon_Count == 5) {
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon1, -100, -60)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon2, -100, 60)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon3, 0, 100)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon4, 0, -100)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon5, 100, 0)
+    } else if (Cannon_Count == 4) {
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon1, 60, 100)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon2, -60, 100)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon3, 100, 0)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon4, -100, 0)
+    } else {
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon1, 60, 100)
+        CannonBall = sprites.createProjectileFromSprite(img`
+            f f 
+            f f 
+            `, cannon2, -60, 100)
+    }
+    for (let value of sprites.allOfKind(SpriteKind.Projectile)) {
+        value.startEffect(effects.fire, 100)
+    }
+}
 function OrientCannons_South () {
     if (Cannon_Count == 5) {
         cannon1.setPosition(Ship.x + 5, Ship.y + 10)
@@ -1223,6 +1383,23 @@ function OrientCannons_South () {
     } else {
         cannon1.setPosition(Ship.x + 5, Ship.y + 10)
         cannon2.setPosition(Ship.x + -5, Ship.y + 10)
+    }
+}
+function OrientCannons_West () {
+    if (Cannon_Count == 5) {
+        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
+        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
+        cannon3.setPosition(Ship.x + 10, Ship.y + 9)
+        cannon4.setPosition(Ship.x + 10, Ship.y + -9)
+        cannon5.setPosition(Ship.x + 15, Ship.y + 0)
+    } else if (Cannon_Count == 4) {
+        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
+        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
+        cannon3.setPosition(Ship.x + 10, Ship.y + 9)
+        cannon4.setPosition(Ship.x + 10, Ship.y + -9)
+    } else {
+        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
+        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
     }
 }
 function Fire_Cannons_East () {
@@ -1610,6 +1787,6 @@ game.onUpdate(function () {
     } else if (ShipDirection == 2) {
         OrientCannons_South()
     } else {
-    	
+        OrientCannons_West()
     }
 })
