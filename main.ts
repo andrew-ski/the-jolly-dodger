@@ -1767,6 +1767,7 @@ function Fire_Cannons_East () {
             `, cannon2, 100, 60)
     }
 }
+let projectile: Sprite = null
 let RowBoat: Sprite = null
 let ReloadCannon = 0
 let CannonBall: Sprite = null
@@ -2110,7 +2111,22 @@ game.onUpdate(function () {
     }
 })
 game.onUpdateInterval(1000, function () {
-    if (RowBoat.x - Ship.x < 45 && RowBoat.y - Ship.y < 45) {
-        RowBoat.follow(Ship, 25)
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (Math.abs(Ship.x - value.x) < 90 && (Math.abs(Ship.x - value.x) > 25 && (Math.abs(Ship.y - value.y) < 90 && Math.abs(Ship.y - value.y) > 25))) {
+            value.follow(Ship, 25)
+        } else {
+            value.follow(null)
+        }
     }
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (Math.abs(Ship.x - value.x) < 70 && (Math.abs(Ship.x - value.x) > 0 && (Math.abs(Ship.y - value.y) < 70 && Math.abs(Ship.y - value.y) > 0))) {
+            projectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, RowBoat, Ship.x - value.x, Ship.y - value.y)
+        } else {
+        	
+        }
+    }
+    Ship.say("" + Math.abs(Ship.x - RowBoat.x), 500)
 })
