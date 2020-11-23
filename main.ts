@@ -3,6 +3,7 @@ namespace SpriteKind {
     export const HUD = SpriteKind.create()
     export const Net = SpriteKind.create()
     export const EnemyProjectile = SpriteKind.create()
+    export const Rowboat = SpriteKind.create()
 }
 function Set_Cannons () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
@@ -110,12 +111,12 @@ function Set_Cannons () {
                 `, SpriteKind.Cannon)
         } else if (ShipDirection == West) {
             Port_Bow_Cannon = sprites.create(img`
-                b b . . e e 
-                b b b e e e 
-                . b b b e 4 
-                . e b b b f 
-                e e e b f f 
                 e e 4 f f e 
+                e e e b f f 
+                . e b b b f 
+                . b b b e 4 
+                b b b e e e 
+                b b . . e e 
                 `, SpriteKind.Cannon)
         }
         Port_Bow_Cannon.z = 6
@@ -150,12 +151,12 @@ function Set_Cannons () {
                 `, SpriteKind.Cannon)
         } else if (ShipDirection == West) {
             Starboard_Bow_Cannon = sprites.create(img`
-                e e 4 f f e 
-                e e e b f f 
-                . e b b b f 
-                . b b b e 4 
-                b b b e e e 
                 b b . . e e 
+                b b b e e e 
+                . b b b e 4 
+                . e b b b f 
+                e e e b f f 
+                e e 4 f f e 
                 `, SpriteKind.Cannon)
         }
         Starboard_Bow_Cannon.z = 6
@@ -1824,39 +1825,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         Net.z = 7
     }
 })
+sprites.onOverlap(SpriteKind.Rowboat, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprite.destroy(effects.ashes, 500)
+    otherSprite.destroy()
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = West
     OrientShip()
     Set_Cannons()
 })
-sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Projectile, function (sprite, otherSprite) {
-    sprite.destroy(effects.ashes, 500)
-    otherSprite.destroy()
-})
-function Map () {
-    myMinimap = minimap.minimap()
-    minimap.includeSprite(myMinimap, Ship)
-    MiniMap = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.HUD)
-    MiniMap.setImage(minimap.getImage(minimap.minimap(MinimapScale.Sixteenth, 2, 12)))
-    MiniMap.setPosition(scene.screenWidth() + 0, scene.screenHeight() + 0)
-}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = East
     OrientShip()
@@ -1902,7 +1879,7 @@ function Orient_Cannons () {
         } else if (ShipDirection == South) {
             Port_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + 10)
         } else if (ShipDirection == West) {
-            Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
+            Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
         }
     }
     if (Owns_Starboard_Bow_Cannon == true) {
@@ -1913,7 +1890,7 @@ function Orient_Cannons () {
         } else if (ShipDirection == South) {
             Starboard_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + 10)
         } else if (ShipDirection == West) {
-            Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
+            Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
         }
     }
     if (Owns_Stern_Cannon == true) {
@@ -1965,69 +1942,7 @@ function rowBoat () {
             . . . . f e e e e f . . . . 
             . . . . f d e e d f . . . . 
             . . . . f f f f f f . . . . 
-            `, SpriteKind.Enemy)
-        animation.runImageAnimation(
-        RowBoat,
-        [img`
-            . . . . . . b b . . . . . . 
-            . . . . . . b b . . . . . . 
-            . . . . . f b b f . . . . . 
-            . . . . . f f f f . . . . . 
-            e . . . f 4 f f 4 f . . . e 
-            . e . . f e e e e f . . e . 
-            . . e . f e e e e f . e . . 
-            . . . e f d e e d f e . . . 
-            . . . . e e e e e e . . . . 
-            . . . . f d e e d f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f d e e d f . . . . 
-            . . . . f f f f f f . . . . 
-            `,img`
-            . . . . . . b b . . . . . . 
-            . . . . . . b b . . . . . . 
-            . . . . . f b b f . . . . . 
-            . . . . . f f f f . . . . . 
-            . . . . f 4 f f 4 f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f d e e d f . . . . 
-            e e e e e e e e e e e e e e 
-            . . . . f d e e d f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f d e e d f . . . . 
-            . . . . f f f f f f . . . . 
-            `,img`
-            . . . . . . b b . . . . . . 
-            . . . . . . b b . . . . . . 
-            . . . . . f b b f . . . . . 
-            . . . . . f f f f . . . . . 
-            . . . . f 4 f f 4 f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f d e e d f . . . . 
-            . . . . e e e e e e . . . . 
-            . . . e f d e e d f e . . . 
-            . . e . f e e e e f . e . . 
-            . e . . f d e e d f . . e . 
-            e . . . f f f f f f . . . e 
-            `,img`
-            . . . . . . b b . . . . . . 
-            . . . . . . b b . . . . . . 
-            . . . . . f b b f . . . . . 
-            . . . . . f f f f . . . . . 
-            . . . . f 4 f f 4 f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f e e e e f . . . . 
-            . . . . f d e e d f . . . . 
-            . . . . e e e e e e . . . . 
-            . . . e f d e e d f e . . . 
-            . . e . f e e e e f . e . . 
-            . e . . f d e e d f . . e . 
-            e . . . f f f f f f . . . e 
-            `],
-        150,
-        true
-        )
+            `, SpriteKind.Rowboat)
         tiles.placeOnTile(RowBoat, value)
         tiles.setTileAt(value, myTiles.tile1)
     }
@@ -2069,6 +1984,14 @@ function level1 () {
     Init_Ship()
     rowBoat()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    if (Ship_Integrity > 1) {
+        Ship_Integrity += -1
+    } else {
+        Ship.destroy(effects.ashes, 500)
+    }
+})
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     game.over(false)
 })
@@ -2124,22 +2047,22 @@ function Fire_Cannons () {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Port_Bow_Cannon, -60, -100)
+                `, Port_Bow_Cannon, -75, -75)
         } else if (ShipDirection == East) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Port_Bow_Cannon, 100, -60)
+                `, Port_Bow_Cannon, 75, -75)
         } else if (ShipDirection == South) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Port_Bow_Cannon, 60, 100)
+                `, Port_Bow_Cannon, 75, 75)
         } else if (ShipDirection == West) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Port_Bow_Cannon, -100, -60)
+                `, Port_Bow_Cannon, -75, 75)
         }
     }
     if (Owns_Starboard_Bow_Cannon == true) {
@@ -2147,22 +2070,22 @@ function Fire_Cannons () {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Starboard_Bow_Cannon, 60, -100)
+                `, Starboard_Bow_Cannon, 75, -75)
         } else if (ShipDirection == East) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Starboard_Bow_Cannon, 100, 60)
+                `, Starboard_Bow_Cannon, 75, 75)
         } else if (ShipDirection == South) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Starboard_Bow_Cannon, -60, 100)
+                `, Starboard_Bow_Cannon, -75, 75)
         } else if (ShipDirection == West) {
             CannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
-                `, Starboard_Bow_Cannon, -100, 60)
+                `, Starboard_Bow_Cannon, -75, -75)
         }
     }
     if (Owns_Stern_Cannon == true) {
@@ -2194,8 +2117,6 @@ let CannonBall: Sprite = null
 let RowBoat: Sprite = null
 let Integrity_HUD: Sprite = null
 let ReloadCannon = 0
-let MiniMap: Sprite = null
-let myMinimap: minimap.Minimap = null
 let NetReload = 0
 let Net: Sprite = null
 let Ship: Sprite = null
@@ -2219,11 +2140,11 @@ North = 0
 East = 1
 South = 2
 West = 3
-Owns_Port_Cannon = false
+Owns_Port_Cannon = true
 Owns_Starboard_Cannon = true
-Owns_Port_Bow_Cannon = false
-Owns_Starboard_Bow_Cannon = false
-Owns_Stern_Cannon = false
+Owns_Port_Bow_Cannon = true
+Owns_Starboard_Bow_Cannon = true
+Owns_Stern_Cannon = true
 let Ship_Max_Integrity = 10
 Ship_Integrity = 10
 level1()
@@ -2232,14 +2153,143 @@ game.onUpdate(function () {
     Integrity_HUD.say("x" + Ship_Integrity)
 })
 game.onUpdateInterval(1000, function () {
-    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+    for (let value of sprites.allOfKind(SpriteKind.Rowboat)) {
         if (Math.abs(Ship.x - value.x) < 90 && (Math.abs(Ship.x - value.x) > 25 && (Math.abs(Ship.y - value.y) < 90 && Math.abs(Ship.y - value.y) > 25))) {
             value.follow(Ship, 25)
+            for (let value of sprites.allOfKind(SpriteKind.Rowboat)) {
+                if (value.y < Ship.y) {
+                    animation.runImageAnimation(
+                    value,
+                    [img`
+                        . . . . f f f f f f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . e f d e e d f e . . . 
+                        . . e . f e e e e f . e . . 
+                        . e . . f e e e e f . . e . 
+                        e . . . f 4 f f 4 f . . . e 
+                        . . . . . f f f f . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        `,img`
+                        . . . . f f f f f f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        e e e e e e e e e e e e e e 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        `,img`
+                        e . . . f f f f f f . . . e 
+                        . e . . f d e e d f . . e . 
+                        . . e . f e e e e f . e . . 
+                        . . . e f d e e d f e . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        `,img`
+                        e . . . f f f f f f . . . e 
+                        . e . . f d e e d f . . e . 
+                        . . e . f e e e e f . e . . 
+                        . . . e f d e e d f e . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        `],
+                    150,
+                    true
+                    )
+                } else {
+                    animation.runImageAnimation(
+                    value,
+                    [img`
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . f f f f . . . . . 
+                        e . . . f 4 f f 4 f . . . e 
+                        . e . . f e e e e f . . e . 
+                        . . e . f e e e e f . e . . 
+                        . . . e f d e e d f e . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f f f f f f . . . . 
+                        `,img`
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        e e e e e e e e e e e e e e 
+                        . . . . f d e e d f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . f f f f f f . . . . 
+                        `,img`
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . e f d e e d f e . . . 
+                        . . e . f e e e e f . e . . 
+                        . e . . f d e e d f . . e . 
+                        e . . . f f f f f f . . . e 
+                        `,img`
+                        . . . . . . b b . . . . . . 
+                        . . . . . . b b . . . . . . 
+                        . . . . . f b b f . . . . . 
+                        . . . . . f f f f . . . . . 
+                        . . . . f 4 f f 4 f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f e e e e f . . . . 
+                        . . . . f d e e d f . . . . 
+                        . . . . e e e e e e . . . . 
+                        . . . e f d e e d f e . . . 
+                        . . e . f e e e e f . e . . 
+                        . e . . f d e e d f . . e . 
+                        e . . . f f f f f f . . . e 
+                        `],
+                    150,
+                    true
+                    )
+                }
+            }
         } else {
             value.follow(null)
         }
     }
-    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+    for (let value of sprites.allOfKind(SpriteKind.Rowboat)) {
         if (Math.abs(Ship.x - value.x) < 70 && (Math.abs(Ship.x - value.x) > 0 && (Math.abs(Ship.y - value.y) < 70 && Math.abs(Ship.y - value.y) > 0))) {
             RowboatProjectile = sprites.createProjectileFromSprite(img`
                 f f 
