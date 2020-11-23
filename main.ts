@@ -4,16 +4,426 @@ namespace SpriteKind {
     export const Net = SpriteKind.create()
     export const EnemyProjectile = SpriteKind.create()
 }
+function Set_Cannons () {
+    for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
+        value.destroy()
+    }
+    if (Owns_Port_Cannon == true) {
+        if (ShipDirection == North) {
+            Port_Cannon = sprites.create(img`
+                . . e 4 f f 
+                b b b b f e 
+                b b b b f e 
+                . . e 4 f f 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == East) {
+            Port_Cannon = sprites.create(img`
+                . b b . 
+                . b b . 
+                e b b e 
+                4 b b 4 
+                f f f f 
+                f e e f 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == South) {
+            Port_Cannon = sprites.create(img`
+                f f 4 e . . 
+                e f b b b b 
+                e f b b b b 
+                f f 4 e . . 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == West) {
+            Port_Cannon = sprites.create(img`
+                f e e f 
+                f f f f 
+                4 b b 4 
+                e b b e 
+                . b b . 
+                . b b . 
+                `, SpriteKind.Cannon)
+        }
+        Port_Cannon.z = 6
+    }
+    if (Owns_Starboard_Cannon == true) {
+        if (ShipDirection == North) {
+            Starboard_Cannon = sprites.create(img`
+                f f 4 e . . 
+                e f b b b b 
+                e f b b b b 
+                f f 4 e . . 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == East) {
+            Starboard_Cannon = sprites.create(img`
+                f e e f 
+                f f f f 
+                4 b b 4 
+                e b b e 
+                . b b . 
+                . b b . 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == South) {
+            Starboard_Cannon = sprites.create(img`
+                . . e 4 f f 
+                b b b b f e 
+                b b b b f e 
+                . . e 4 f f 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == West) {
+            Starboard_Cannon = sprites.create(img`
+                . b b . 
+                . b b . 
+                e b b e 
+                4 b b 4 
+                f f f f 
+                f e e f 
+                `, SpriteKind.Cannon)
+        }
+        Starboard_Cannon.z = 6
+    }
+    if (Owns_Port_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            Port_Bow_Cannon = sprites.create(img`
+                b b . . e e 
+                b b b e e e 
+                . b b b e 4 
+                . e b b b f 
+                e e e b f f 
+                e e 4 f f e 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == East) {
+            Port_Bow_Cannon = sprites.create(img`
+                e e . . b b 
+                e e e b b b 
+                4 e b b b . 
+                f b b b e . 
+                f f b e e e 
+                e f f 4 e e 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == South) {
+            Port_Bow_Cannon = sprites.create(img`
+                e f f 4 e e 
+                f f b e e e 
+                f b b b e . 
+                4 e b b b . 
+                e e e b b b 
+                e e . . b b 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == West) {
+            Port_Bow_Cannon = sprites.create(img`
+                b b . . e e 
+                b b b e e e 
+                . b b b e 4 
+                . e b b b f 
+                e e e b f f 
+                e e 4 f f e 
+                `, SpriteKind.Cannon)
+        }
+        Port_Bow_Cannon.z = 6
+    }
+    if (Owns_Starboard_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            Starboard_Bow_Cannon = sprites.create(img`
+                e e . . b b 
+                e e e b b b 
+                4 e b b b . 
+                f b b b e . 
+                f f b e e e 
+                e f f 4 e e 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == East) {
+            Starboard_Bow_Cannon = sprites.create(img`
+                e f f 4 e e 
+                f f b e e e 
+                f b b b e . 
+                4 e b b b . 
+                e e e b b b 
+                e e . . b b 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == South) {
+            Starboard_Bow_Cannon = sprites.create(img`
+                e e 4 f f e 
+                e e e b f f 
+                . e b b b f 
+                . b b b e 4 
+                b b b e e e 
+                b b . . e e 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == West) {
+            Starboard_Bow_Cannon = sprites.create(img`
+                e e 4 f f e 
+                e e e b f f 
+                . e b b b f 
+                . b b b e 4 
+                b b b e e e 
+                b b . . e e 
+                `, SpriteKind.Cannon)
+        }
+        Starboard_Bow_Cannon.z = 6
+    }
+    if (Owns_Stern_Cannon == true) {
+        if (ShipDirection == North) {
+            Stern_Cannon = sprites.create(img`
+                f e e f 
+                f f f f 
+                4 b b 4 
+                e b b e 
+                . b b . 
+                . b b . 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == East) {
+            Stern_Cannon = sprites.create(img`
+                . . e 4 f f 
+                b b b b f e 
+                b b b b f e 
+                . . e 4 f f 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == South) {
+            Stern_Cannon = sprites.create(img`
+                . b b . 
+                . b b . 
+                e b b e 
+                4 b b 4 
+                f f f f 
+                f e e f 
+                `, SpriteKind.Cannon)
+        } else if (ShipDirection == West) {
+            Stern_Cannon = sprites.create(img`
+                f f 4 e . . 
+                e f b b b b 
+                e f b b b b 
+                f f 4 e . . 
+                `, SpriteKind.Cannon)
+        }
+        Stern_Cannon.z = 6
+    }
+}
+function Init_Ship () {
+    ShipDirection = North
+    Ship = sprites.create(img`
+        ...........ee...........
+        ..........eeee..........
+        .........ee44ee.........
+        ........eee44eee........
+        .......eee4ee4eee.......
+        ......eee4eeee4eee......
+        .....eee4e4ee4e4eee.....
+        ....eee4eeeeeeee4eee....
+        ...eee4eeeeeeeeee4eee...
+        ..eee4e4eeeeeeee4e4eee..
+        ..ee4eeeeeeeeeeeeee4ee..
+        ..e4ee44eeeeeeeeeeee4e..
+        ..e4e4e44eeeee44444e4e..
+        ..e4e44e4eeeeee444d44e..
+        ..e4ee44eeeeeeee4ddd4e..
+        ..e4eeeeeeeeeeee4ded4e..
+        ..e4eeeeeeffffee4edede..
+        2121212121feef1212121212
+        fffffffffffeefffffffffff
+        ..e4eeeeeeffffee4ded4d..
+        ..e4eeeeeeeeeee44ede4d..
+        ..e4eeeeeeeeeeee4dedde..
+        ..e4eeeeeeeeeeeeedde4e..
+        ..e4e4eeeeeeeeeeee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4e4eee4eeee4eee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..ee4444444444444444ee..
+        ...eeeeeeeeeeeeeeeeee...
+        ........................
+        ........................
+        `, SpriteKind.Player)
+    animation.runImageAnimation(
+    Ship,
+    [img`
+        ..........1..1..........
+        .........1....1.........
+        ........................
+        .......1........1.......
+        ......1....ee....1......
+        .....1....eeee....1.....
+        .........ee44ee.........
+        ........eee44eee........
+        ..1....eee4ee4eee....1..
+        .1....eee4eeee4eee....1.
+        1....eee4e4ee4e4eee....1
+        ....eee4eeeeeeee4eee....
+        ...eee4eeeeeeeeee4eee...
+        ..eee4e4eeeeeeee4e4eee..
+        1.ee4eeeeeeeeeeeeee4ee.1
+        1.e4ee44eeeeeeeeeeee4e.1
+        1.e4e4e44eeeee44444e4e.1
+        ..e4e44e4eeeeee444d44e..
+        ..e4ee44eeeeeeee4ddd4e..
+        1.e4eeeeeeeeeeee4ded4e.1
+        1.e4eeeeeeffffee4edede.1
+        2121212121feef1212121212
+        fffffffffffeefffffffffff
+        ..e4eeeeeeffffee4ded4d..
+        ..e4eeeeeeeeeee44ede4d..
+        ..e4eeeeeeeeeeee4dedde..
+        1.e4eeeeeeeeeeeeedde4e.1
+        1.e4e4eeeeeeeeeeee4e4e.1
+        1.e4eeeeeeeeeeeeeeee4e.1
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        1.e4e4eee4eeee4eee4e4e.1
+        1.e4eeeeeeeeeeeeeeee4e.1
+        1.ee4444444444444444ee.1
+        ...eeeeeeeeeeeeeeeeee...
+        ........................
+        ........................
+        1......................1
+        1......................1
+        `,img`
+        ...........11...........
+        ........................
+        .........1....1.........
+        ........................
+        .......1...ee....1......
+        ..........eeee..........
+        ....1....ee44ee....1....
+        ...1....eee44eee....1...
+        .......eee4ee4eee.......
+        .1....eee4eeee4eee....1.
+        .....eee4e4ee4e4eee.....
+        1...eee4eeeeeeee4eee...1
+        1..eee4eeeeeeeeee4eee..1
+        1.eee4e4eeeeeeee4e4eee.1
+        ..ee4eeeeeeeeeeeeee4ee..
+        ..e4ee44eeeeeeeeeeee4e..
+        ..e4e4e44eeeee44444e4e..
+        1.e4e44e4eeeeee444d44e.1
+        1.e4ee44eeeeeeee4ddd4e.1
+        1.e4eeeeeeeeeeee4ded4e.1
+        ..e4eeeeeeffffee4edede..
+        2121212121feef1212121212
+        fffffffffffeefffffffffff
+        1.e4eeeeeeffffee4ded4d.1
+        1.e4eeeeeeeeeee44ede4d.1
+        1.e4eeeeeeeeeeee4dedde.1
+        ..e4eeeeeeeeeeeeedde4e..
+        ..e4e4eeeeeeeeeeee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        1.e4eeeeeeeeeeeeeeee4e.1
+        ..e4e4eee4eeee4eee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..ee4444444444444444ee..
+        1..eeeeeeeeeeeeeeeeee..1
+        1......................1
+        1......................1
+        ........................
+        ........................
+        `,img`
+        ..........1..1..........
+        ........................
+        ........1......1........
+        ........................
+        ......1....ee....1......
+        .....1....eeee....1.....
+        .........ee44ee.........
+        ........eee44eee........
+        ..1....eee4ee4eee....1..
+        .1....eee4eeee4eee....1.
+        1....eee4e4ee4e4eee....1
+        ....eee4eeeeeeee4eee....
+        ...eee4eeeeeeeeee4eee...
+        ..eee4e4eeeeeeee4e4eee..
+        1.ee4eeeeeeeeeeeeee4ee.1
+        1.e4ee44eeeeeeeeeeee4e.1
+        1.e4e4e44eeeee44444e4e.1
+        ..e4e44e4eeeeee444d44e..
+        ..e4ee44eeeeeeee4ddd4e..
+        ..e4eeeeeeeeeeee4ded4e..
+        1.e4eeeeeeffffee4edede.1
+        2121212121feef1212121212
+        fffffffffffeefffffffffff
+        ..e4eeeeeeffffee4ded4d..
+        1.e4eeeeeeeeeee44ede4d.1
+        ..e4eeeeeeeeeeee4dedde..
+        1.e4eeeeeeeeeeeeedde4e.1
+        1.e4e4eeeeeeeeeeee4e4e.1
+        1.e4eeeeeeeeeeeeeeee4e.1
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        1.e4e4eee4eeee4eee4e4e.1
+        1.e4eeeeeeeeeeeeeeee4e.1
+        1.ee4444444444444444ee.1
+        ...eeeeeeeeeeeeeeeeee...
+        1......................1
+        ........................
+        1......................1
+        1......................1
+        `,img`
+        ........................
+        .........1....1.........
+        ........................
+        .......1........1.......
+        ......1....ee....1......
+        ..........eeee..........
+        ....1....ee44ee....1....
+        ...1....eee44eee....1...
+        .......eee4ee4eee.......
+        ......eee4eeee4eee......
+        .....eee4e4ee4e4eee.....
+        1...eee4eeeeeeee4eee...1
+        1..eee4eeeeeeeeee4eee..1
+        1.eee4e4eeeeeeee4e4eee.1
+        ..ee4eeeeeeeeeeeeee4ee..
+        ..e4ee44eeeeeeeeeeee4e..
+        ..e4e4e44eeeee44444e4e..
+        1.e4e44e4eeeeee444d44e.1
+        1.e4ee44eeeeeeee4ddd4e.1
+        1.e4eeeeeeeeeeee4ded4e.1
+        ..e4eeeeeeffffee4edede..
+        2121212121feef1212121212
+        fffffffffffeefffffffffff
+        1.e4eeeeeeffffee4ded4d.1
+        1.e4eeeeeeeeeee44ede4d.1
+        1.e4eeeeeeeeeeee4dedde.1
+        ..e4eeeeeeeeeeeeedde4e..
+        ..e4e4eeeeeeeeeeee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        1.e4eeeeeeeeeeeeeeee4e.1
+        ..e4e4eee4eeee4eee4e4e..
+        ..e4eeeeeeeeeeeeeeee4e..
+        ..ee4444444444444444ee..
+        1..eeeeeeeeeeeeeeeeee..1
+        1......................1
+        1......................1
+        ........................
+        ........................
+        `],
+    200,
+    true
+    )
+    controller.moveSprite(Ship, 50, 50)
+    Ship.z = 5
+    scene.cameraFollowSprite(Ship)
+    Set_Cannons()
+    for (let value of tiles.getTilesByType(myTiles.tile4)) {
+        tiles.placeOnRandomTile(Ship, myTiles.tile4)
+        tiles.setTileAt(value, myTiles.tile1)
+    }
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    ShipDirection = 0
+    ShipDirection = North
     OrientShip()
-    CannonsNorth()
+    Set_Cannons()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyProjectile, function (sprite, otherSprite) {
 	
 })
 function OrientShip () {
-    if (ShipDirection == 0) {
+    if (ShipDirection == North) {
         animation.runImageAnimation(
         Ship,
         [img`
@@ -184,7 +594,7 @@ function OrientShip () {
         200,
         true
         )
-    } else if (ShipDirection == 1) {
+    } else if (ShipDirection == East) {
         animation.runImageAnimation(
         Ship,
         [img`
@@ -291,7 +701,7 @@ function OrientShip () {
         200,
         true
         )
-    } else if (ShipDirection == 2) {
+    } else if (ShipDirection == South) {
         animation.runImageAnimation(
         Ship,
         [img`
@@ -462,7 +872,7 @@ function OrientShip () {
         200,
         true
         )
-    } else {
+    } else if (ShipDirection == West) {
         animation.runImageAnimation(
         Ship,
         [img`
@@ -576,7 +986,7 @@ function CannonsNorth () {
         value.destroy()
     }
     if (Cannon_Count == 5) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -584,7 +994,7 @@ function CannonsNorth () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -592,19 +1002,19 @@ function CannonsNorth () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             . . e 4 f f 
             b b b b f e 
             b b b b f e 
             . . e 4 f f 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             f f 4 e . . 
             e f b b b b 
             e f b b b b 
             f f 4 e . . 
             `, SpriteKind.Cannon)
-        cannon5 = sprites.create(img`
+        Stern_Cannon = sprites.create(img`
             f e e f 
             f f f f 
             4 b b 4 
@@ -612,13 +1022,13 @@ function CannonsNorth () {
             . b b . 
             . b b . 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
-        cannon5.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
+        Stern_Cannon.z = 6
     } else if (Cannon_Count == 4) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -626,7 +1036,7 @@ function CannonsNorth () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -634,24 +1044,24 @@ function CannonsNorth () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             . . e 4 f f 
             b b b b f e 
             b b b b f e 
             . . e 4 f f 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             f f 4 e . . 
             e f b b b b 
             e f b b b b 
             f f 4 e . . 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
     } else {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -659,7 +1069,7 @@ function CannonsNorth () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -667,8 +1077,8 @@ function CannonsNorth () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
     }
 }
 function CannonsWest () {
@@ -676,7 +1086,7 @@ function CannonsWest () {
         value.destroy()
     }
     if (Cannon_Count == 5) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -684,7 +1094,7 @@ function CannonsWest () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -692,7 +1102,7 @@ function CannonsWest () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             f e e f 
             f f f f 
             4 b b 4 
@@ -700,7 +1110,7 @@ function CannonsWest () {
             . b b . 
             . b b . 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             . b b . 
             . b b . 
             e b b e 
@@ -708,19 +1118,19 @@ function CannonsWest () {
             f f f f 
             f e e f 
             `, SpriteKind.Cannon)
-        cannon5 = sprites.create(img`
+        Stern_Cannon = sprites.create(img`
             f f 4 e . . 
             e f b b b b 
             e f b b b b 
             f f 4 e . . 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
-        cannon5.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
+        Stern_Cannon.z = 6
     } else if (Cannon_Count == 4) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -728,7 +1138,7 @@ function CannonsWest () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -736,7 +1146,7 @@ function CannonsWest () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             f e e f 
             f f f f 
             4 b b 4 
@@ -744,7 +1154,7 @@ function CannonsWest () {
             . b b . 
             . b b . 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             . b b . 
             . b b . 
             e b b e 
@@ -752,12 +1162,12 @@ function CannonsWest () {
             f f f f 
             f e e f 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
     } else {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             b b . . e e 
             b b b e e e 
             . b b b e 4 
@@ -765,7 +1175,7 @@ function CannonsWest () {
             e e e b f f 
             e e 4 f f e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -773,8 +1183,8 @@ function CannonsWest () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
     }
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -798,7 +1208,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         `, SpriteKind.Net)
     if (game.runtime() > NetReload + 1500) {
         NetReload = game.runtime()
-        if (ShipDirection == 0) {
+        if (ShipDirection == North) {
             Net.setPosition(Ship.x + 16, Ship.y)
             animation.runImageAnimation(
             Net,
@@ -1078,11 +1488,11 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             100,
             false
             )
-        } else if (ShipDirection == 1) {
+        } else if (ShipDirection == East) {
         	
-        } else if (ShipDirection == 2) {
+        } else if (ShipDirection == South) {
         	
-        } else {
+        } else if (ShipDirection == West) {
         	
         }
     }
@@ -1092,7 +1502,7 @@ function CannonsSouth () {
         value.destroy()
     }
     if (Cannon_Count == 5) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1100,7 +1510,7 @@ function CannonsSouth () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -1108,19 +1518,19 @@ function CannonsSouth () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             f f 4 e . . 
             e f b b b b 
             e f b b b b 
             f f 4 e . . 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             . . e 4 f f 
             b b b b f e 
             b b b b f e 
             . . e 4 f f 
             `, SpriteKind.Cannon)
-        cannon5 = sprites.create(img`
+        Stern_Cannon = sprites.create(img`
             . b b . 
             . b b . 
             e b b e 
@@ -1128,13 +1538,13 @@ function CannonsSouth () {
             f f f f 
             f e e f 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
-        cannon5.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
+        Stern_Cannon.z = 6
     } else if (Cannon_Count == 4) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1142,7 +1552,7 @@ function CannonsSouth () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -1150,24 +1560,24 @@ function CannonsSouth () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             f f 4 e . . 
             e f b b b b 
             e f b b b b 
             f f 4 e . . 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             . . e 4 f f 
             b b b b f e 
             b b b b f e 
             . . e 4 f f 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
     } else {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1175,7 +1585,7 @@ function CannonsSouth () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e e 4 f f e 
             e e e b f f 
             . e b b b f 
@@ -1183,14 +1593,14 @@ function CannonsSouth () {
             b b b e e e 
             b b . . e e 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    ShipDirection = 3
+    ShipDirection = West
     OrientShip()
-    CannonsWest()
+    Set_Cannons()
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprite.destroy(effects.ashes, 500)
@@ -1201,7 +1611,7 @@ function CannonsEast () {
         value.destroy()
     }
     if (Cannon_Count == 5) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -1209,7 +1619,7 @@ function CannonsEast () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1217,7 +1627,7 @@ function CannonsEast () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             . b b . 
             . b b . 
             e b b e 
@@ -1225,7 +1635,7 @@ function CannonsEast () {
             f f f f 
             f e e f 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             f e e f 
             f f f f 
             4 b b 4 
@@ -1233,19 +1643,19 @@ function CannonsEast () {
             . b b . 
             . b b . 
             `, SpriteKind.Cannon)
-        cannon5 = sprites.create(img`
+        Stern_Cannon = sprites.create(img`
             . . e 4 f f 
             b b b b f e 
             b b b b f e 
             . . e 4 f f 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
-        cannon5.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
+        Stern_Cannon.z = 6
     } else if (Cannon_Count == 4) {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -1253,7 +1663,7 @@ function CannonsEast () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1261,7 +1671,7 @@ function CannonsEast () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon3 = sprites.create(img`
+        Port_Cannon = sprites.create(img`
             . b b . 
             . b b . 
             e b b e 
@@ -1269,7 +1679,7 @@ function CannonsEast () {
             f f f f 
             f e e f 
             `, SpriteKind.Cannon)
-        cannon4 = sprites.create(img`
+        Starboard_Cannon = sprites.create(img`
             f e e f 
             f f f f 
             4 b b 4 
@@ -1277,12 +1687,12 @@ function CannonsEast () {
             . b b . 
             . b b . 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
-        cannon3.z = 6
-        cannon4.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
+        Port_Cannon.z = 6
+        Starboard_Cannon.z = 6
     } else {
-        cannon1 = sprites.create(img`
+        Port_Bow_Cannon = sprites.create(img`
             e e . . b b 
             e e e b b b 
             4 e b b b . 
@@ -1290,7 +1700,7 @@ function CannonsEast () {
             f f b e e e 
             e f f 4 e e 
             `, SpriteKind.Cannon)
-        cannon2 = sprites.create(img`
+        Starboard_Bow_Cannon = sprites.create(img`
             e f f 4 e e 
             f f b e e e 
             f b b b e . 
@@ -1298,8 +1708,8 @@ function CannonsEast () {
             e e e b b b 
             e e . . b b 
             `, SpriteKind.Cannon)
-        cannon1.z = 6
-        cannon2.z = 6
+        Port_Bow_Cannon.z = 6
+        Starboard_Bow_Cannon.z = 6
     }
 }
 function Map () {
@@ -1331,49 +1741,49 @@ function Fire_Cannons_North () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -60, -100)
+            `, Port_Bow_Cannon, -60, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 60, -100)
+            `, Starboard_Bow_Cannon, 60, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon5, 0, 100)
+            `, Stern_Cannon, 0, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, -100, 0)
+            `, Port_Cannon, -100, 0)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 100, 0)
+            `, Starboard_Cannon, 100, 0)
     } else if (Cannon_Count == 4) {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -60, -100)
+            `, Port_Bow_Cannon, -60, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 60, -100)
+            `, Starboard_Bow_Cannon, 60, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, -100, 0)
+            `, Port_Cannon, -100, 0)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 100, 0)
+            `, Starboard_Cannon, 100, 0)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -60, -100)
+            `, Port_Bow_Cannon, -60, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 60, -100)
+            `, Starboard_Bow_Cannon, 60, -100)
     }
 }
 function Fire_Cannons_South () {
@@ -1381,328 +1791,159 @@ function Fire_Cannons_South () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, Port_Bow_Cannon, 60, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
+            `, Starboard_Bow_Cannon, -60, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 100, 0)
+            `, Port_Cannon, 100, 0)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, -100, 0)
+            `, Starboard_Cannon, -100, 0)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon5, 0, -100)
+            `, Stern_Cannon, 0, -100)
     } else if (Cannon_Count == 4) {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, Port_Bow_Cannon, 60, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
+            `, Starboard_Bow_Cannon, -60, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 100, 0)
+            `, Port_Cannon, 100, 0)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, -100, 0)
+            `, Starboard_Cannon, -100, 0)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 60, 100)
+            `, Port_Bow_Cannon, 60, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -60, 100)
-    }
-}
-function ShipInit () {
-    ShipDirection = 0
-    Cannon_Count = 2
-    Ship = sprites.create(img`
-        ...........ee...........
-        ..........eeee..........
-        .........ee44ee.........
-        ....bb..eee44eee..bb....
-        ....bbbeee4ee4eeebbb....
-        .....bbbe4eeee4ebbb.....
-        .....ebbbf4ee4fbbbe.....
-        ....eeebffeeeeffbeee....
-        ...eee4ffeeeeeeff4eee...
-        ..eee4e4eeeeeeee4e4eee..
-        ..ee4eeeeeeeeeeeeee4ee..
-        ..e4ee44eeeeeeeeeeee4e..
-        ..e4e4e44eeeee44444e4e..
-        ..e4e44e4eeeeee444d44e..
-        ..e4ee44eeeeeeee4ddd4e..
-        ..e4eeeeeeeeeeee4ded4e..
-        ..e4eeeeeeffffee4edede..
-        2121212121feef1212121212
-        fffffffffffeefffffffffff
-        ..e4eeeeeeffffee4ded4d..
-        ..e4eeeeeeeeeee44ede4d..
-        ..e4eeeeeeeeeeee4dedde..
-        ..e4eeeeeeeeeeeeedde4e..
-        ..e4e4eeeeeeeeeeee4e4e..
-        ..e4eeeeeeeeeeeeeeee4e..
-        ..e4eeeeeeeeeeeeeeee4e..
-        ..e4eeeeeeeeeeeeeeee4e..
-        ..e4eeeeeeeeeeeeeeee4e..
-        ..e4e4eee4eeee4eee4e4e..
-        ..e4eeeeeeeeeeeeeeee4e..
-        ..ee4444444444444444ee..
-        ...eeeeeeeeeeeeeeeeee...
-        ........................
-        ........................
-        `, SpriteKind.Player)
-    animation.runImageAnimation(
-    Ship,
-    [img`
-        ............1..1............
-        ...........1....1...........
-        ............................
-        .........1........1.........
-        ........1....ee....1........
-        .......1....eeee....1.......
-        ...........ee44ee...........
-        ......bb..eee44eee..bb......
-        ....1.bbbeee4ee4eeebbb.1....
-        ...1...bbbe4eeee4ebbb...1...
-        ..1....ebbbf4ee4fbbbe....1..
-        ......eeebffeeeeffbeee......
-        .....eee4ffeeeeeeff4eee.....
-        ....eee4e4eeeeeeee4e4eee....
-        ..1.ee4eeeeeeeeeeeeee4ee.1..
-        ..1.e4ee44eeeeeeeeeeee4e.1..
-        ..1.e4e4e44eeeee44444e4e.1..
-        ....e4e44e4eeeeee444d44e....
-        ....e4ee44eeeeeeee4ddd4e....
-        ..1.e4eeeeeeeeeeee4ded4e.1..
-        ..1.e4eeeeeeffffee4edede.1..
-        ..2121212121feef1212121212..
-        ..fffffffffffeefffffffffff..
-        ....e4eeeeeeffffee4ded4d....
-        ....e4eeeeeeeeeee44ede4d....
-        ....e4eeeeeeeeeeee4dedde....
-        ..1.e4eeeeeeeeeeeeedde4e.1..
-        ..1.e4e4eeeeeeeeeeee4e4e.1..
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ..1.e4e4eee4eeee4eee4e4e.1..
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ..1.ee4444444444444444ee.1..
-        .....eeeeeeeeeeeeeeeeee.....
-        ............................
-        ............................
-        ..1......................1..
-        ..1......................1..
-        `,img`
-        .............11.............
-        ............................
-        ...........1....1...........
-        ............................
-        .........1...ee....1........
-        ............eeee............
-        ......1....ee44ee....1......
-        .....1bb..eee44eee..bb1.....
-        ......bbbeee4ee4eeebbb......
-        ...1...bbbe4eeee4ebbb...1...
-        .......ebbbf4ee4fbbbe.......
-        ..1...eeebffeeeeffbeee...1..
-        ..1..eee4ffeeeeeeff4eee..1..
-        ..1.eee4e4eeeeeeee4e4eee.1..
-        ....ee4eeeeeeeeeeeeee4ee....
-        ....e4ee44eeeeeeeeeeee4e....
-        ....e4e4e44eeeee44444e4e....
-        ..1.e4e44e4eeeeee444d44e.1..
-        ..1.e4ee44eeeeeeee4ddd4e.1..
-        ..1.e4eeeeeeeeeeee4ded4e.1..
-        ....e4eeeeeeffffee4edede....
-        ..2121212121feef1212121212..
-        ..fffffffffffeefffffffffff..
-        ..1.e4eeeeeeffffee4ded4d.1..
-        ..1.e4eeeeeeeeeee44ede4d.1..
-        ..1.e4eeeeeeeeeeee4dedde.1..
-        ....e4eeeeeeeeeeeeedde4e....
-        ....e4e4eeeeeeeeeeee4e4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ....e4e4eee4eeee4eee4e4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....ee4444444444444444ee....
-        ..1..eeeeeeeeeeeeeeeeee..1..
-        ..1......................1..
-        ..1......................1..
-        ............................
-        ............................
-        `,img`
-        ............1..1............
-        ............................
-        ..........1......1..........
-        ............................
-        ........1....ee....1........
-        .......1....eeee....1.......
-        ...........ee44ee...........
-        ......bb..eee44eee..bb......
-        ....1.bbbeee4ee4eeebbb.1....
-        ...1...bbbe4eeee4ebbb...1...
-        ..1....ebbbf4ee4fbbbe....1..
-        ......eeebffeeeeffbeee......
-        .....eee4ffeeeeeeff4eee.....
-        ....eee4e4eeeeeeee4e4eee....
-        ..1.ee4eeeeeeeeeeeeee4ee.1..
-        ..1.e4ee44eeeeeeeeeeee4e.1..
-        ..1.e4e4e44eeeee44444e4e.1..
-        ....e4e44e4eeeeee444d44e....
-        ....e4ee44eeeeeeee4ddd4e....
-        ....e4eeeeeeeeeeee4ded4e....
-        ..1.e4eeeeeeffffee4edede.1..
-        ..2121212121feef1212121212..
-        ..fffffffffffeefffffffffff..
-        ....e4eeeeeeffffee4ded4d....
-        ..1.e4eeeeeeeeeee44ede4d.1..
-        ....e4eeeeeeeeeeee4dedde....
-        ..1.e4eeeeeeeeeeeeedde4e.1..
-        ..1.e4e4eeeeeeeeeeee4e4e.1..
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ..1.e4e4eee4eeee4eee4e4e.1..
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ..1.ee4444444444444444ee.1..
-        .....eeeeeeeeeeeeeeeeee.....
-        ..1......................1..
-        ............................
-        ..1......................1..
-        ..1......................1..
-        `,img`
-        ............................
-        ...........1....1...........
-        ............................
-        .........1........1.........
-        ........1....ee....1........
-        ............eeee............
-        ......1....ee44ee....1......
-        .....1bb..eee44eee..bb1.....
-        ......bbbeee4ee4eeebbb......
-        .......bbbe4eeee4ebbb.......
-        .......ebbbf4ee4fbbbe.......
-        ..1...eeebffeeeeffbeee...1..
-        ..1..eee4ffeeeeeeff4eee..1..
-        ..1.eee4e4eeeeeeee4e4eee.1..
-        ....ee4eeeeeeeeeeeeee4ee....
-        ....e4ee44eeeeeeeeeeee4e....
-        ....e4e4e44eeeee44444e4e....
-        ..1.e4e44e4eeeeee444d44e.1..
-        ..1.e4ee44eeeeeeee4ddd4e.1..
-        ..1.e4eeeeeeeeeeee4ded4e.1..
-        ....e4eeeeeeffffee4edede....
-        ..2121212121feef1212121212..
-        ..fffffffffffeefffffffffff..
-        ..1.e4eeeeeeffffee4ded4d.1..
-        ..1.e4eeeeeeeeeee44ede4d.1..
-        ..1.e4eeeeeeeeeeee4dedde.1..
-        ....e4eeeeeeeeeeeeedde4e....
-        ....e4e4eeeeeeeeeeee4e4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ..1.e4eeeeeeeeeeeeeeee4e.1..
-        ....e4e4eee4eeee4eee4e4e....
-        ....e4eeeeeeeeeeeeeeee4e....
-        ....ee4444444444444444ee....
-        ..1..eeeeeeeeeeeeeeeeee..1..
-        ..1......................1..
-        ..1......................1..
-        ............................
-        ............................
-        `],
-    200,
-    true
-    )
-    controller.moveSprite(Ship, 50, 50)
-    Ship.z = 5
-    scene.cameraFollowSprite(Ship)
-    CannonsNorth()
-    for (let value of tiles.getTilesByType(myTiles.tile4)) {
-        tiles.placeOnRandomTile(Ship, myTiles.tile4)
-        tiles.setTileAt(value, myTiles.tile1)
+            `, Starboard_Bow_Cannon, -60, 100)
     }
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    ShipDirection = 1
+    ShipDirection = East
     OrientShip()
-    CannonsEast()
+    Set_Cannons()
 })
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
     if (game.runtime() > ReloadCannon + 1000) {
         ReloadCannon = game.runtime()
-        if (ShipDirection == 0) {
-            Fire_Cannons_North()
-        } else if (ShipDirection == 1) {
-            Fire_Cannons_East()
-        } else if (ShipDirection == 2) {
-            Fire_Cannons_South()
-        } else {
-            Fire_Cannons_West()
-        }
+        Fire_Cannons()
         for (let value of sprites.allOfKind(SpriteKind.Projectile)) {
             value.startEffect(effects.fire, 50)
         }
     }
 })
+function Orient_Cannons () {
+    if (Owns_Port_Cannon == true) {
+        if (ShipDirection == North) {
+            Port_Cannon.setPosition(Ship.x + -9, Ship.y + 10)
+        } else if (ShipDirection == East) {
+            Port_Cannon.setPosition(Ship.x + -10, Ship.y + -9)
+        } else if (ShipDirection == South) {
+            Port_Cannon.setPosition(Ship.x + 9, Ship.y + -10)
+        } else if (ShipDirection == West) {
+            Port_Cannon.setPosition(Ship.x + 10, Ship.y + 9)
+        }
+    }
+    if (Owns_Starboard_Cannon == true) {
+        if (ShipDirection == North) {
+            Starboard_Cannon.setPosition(Ship.x + 9, Ship.y + 10)
+        } else if (ShipDirection == East) {
+            Starboard_Cannon.setPosition(Ship.x + -10, Ship.y + 9)
+        } else if (ShipDirection == South) {
+            Starboard_Cannon.setPosition(Ship.x + -9, Ship.y + -10)
+        } else if (ShipDirection == West) {
+            Starboard_Cannon.setPosition(Ship.x + 10, Ship.y + -9)
+        }
+    }
+    if (Owns_Port_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            Port_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + -10)
+        } else if (ShipDirection == East) {
+            Port_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + -5)
+        } else if (ShipDirection == South) {
+            Port_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + 10)
+        } else if (ShipDirection == West) {
+            Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
+        }
+    }
+    if (Owns_Starboard_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            Starboard_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + -10)
+        } else if (ShipDirection == East) {
+            Starboard_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + 5)
+        } else if (ShipDirection == South) {
+            Starboard_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + 10)
+        } else if (ShipDirection == West) {
+            Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
+        }
+    }
+    if (Owns_Stern_Cannon == true) {
+        if (ShipDirection == North) {
+            Stern_Cannon.setPosition(Ship.x + 0, Ship.y + 15)
+        } else if (ShipDirection == East) {
+            Stern_Cannon.setPosition(Ship.x + -15, Ship.y + 0)
+        } else if (ShipDirection == South) {
+            Stern_Cannon.setPosition(Ship.x + 0, Ship.y + -15)
+        } else if (ShipDirection == West) {
+            Stern_Cannon.setPosition(Ship.x + 15, Ship.y + 0)
+        }
+    }
+}
 function OrientCannons_North () {
     if (Cannon_Count == 5) {
-        cannon1.setPosition(Ship.x + -5, Ship.y + -10)
-        cannon2.setPosition(Ship.x + 5, Ship.y + -10)
-        cannon3.setPosition(Ship.x + -9, Ship.y + 10)
-        cannon4.setPosition(Ship.x + 9, Ship.y + 10)
-        cannon5.setPosition(Ship.x + 0, Ship.y + 15)
+        Port_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + -10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + -10)
+        Port_Cannon.setPosition(Ship.x + -9, Ship.y + 10)
+        Starboard_Cannon.setPosition(Ship.x + 9, Ship.y + 10)
+        Stern_Cannon.setPosition(Ship.x + 0, Ship.y + 15)
     } else if (Cannon_Count == 4) {
-        cannon1.setPosition(Ship.x + -5, Ship.y + -10)
-        cannon2.setPosition(Ship.x + 5, Ship.y + -10)
-        cannon3.setPosition(Ship.x + -9, Ship.y + 10)
-        cannon4.setPosition(Ship.x + 9, Ship.y + 10)
+        Port_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + -10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + -10)
+        Port_Cannon.setPosition(Ship.x + -9, Ship.y + 10)
+        Starboard_Cannon.setPosition(Ship.x + 9, Ship.y + 10)
     } else {
-        cannon1.setPosition(Ship.x + -5, Ship.y + -10)
-        cannon2.setPosition(Ship.x + 5, Ship.y + -10)
+        Port_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + -10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + -10)
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    ShipDirection = 2
+    ShipDirection = South
     OrientShip()
-    CannonsSouth()
+    Set_Cannons()
 })
 function OrientCannons_East () {
     if (Cannon_Count == 5) {
-        cannon1.setPosition(Ship.x + 10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + 10, Ship.y + 5)
-        cannon3.setPosition(Ship.x + -10, Ship.y + -9)
-        cannon4.setPosition(Ship.x + -10, Ship.y + 9)
-        cannon5.setPosition(Ship.x + -15, Ship.y + 0)
+        Port_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + 5)
+        Port_Cannon.setPosition(Ship.x + -10, Ship.y + -9)
+        Starboard_Cannon.setPosition(Ship.x + -10, Ship.y + 9)
+        Stern_Cannon.setPosition(Ship.x + -15, Ship.y + 0)
     } else if (Cannon_Count == 4) {
-        cannon1.setPosition(Ship.x + 10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + 10, Ship.y + 5)
-        cannon3.setPosition(Ship.x + -10, Ship.y + -9)
-        cannon4.setPosition(Ship.x + -10, Ship.y + 9)
+        Port_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + 5)
+        Port_Cannon.setPosition(Ship.x + -10, Ship.y + -9)
+        Starboard_Cannon.setPosition(Ship.x + -10, Ship.y + 9)
     } else {
-        cannon1.setPosition(Ship.x + 10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + 10, Ship.y + 5)
+        Port_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + 10, Ship.y + 5)
     }
 }
 function rowBoat () {
@@ -1831,7 +2072,7 @@ function rowBoat () {
     }
 }
 function level1 () {
-    tiles.setTilemap(tiles.createTilemap(hex`1e001e0002020202020202020202020202080808080808020202020202020202020202020202020202020808080807010101010101090808080202020202020202020202020202070101010101010101010101010101010908020202020202020202020207010101010101010101010101010101010101090202020202020202020701010101010101010101030101010101010101010a020202020202020701010101010101010101010101010101010101010109020202020202070101010101010101010101010101010101010101010101090202020207010101010101010101010101010101010101010101010101010a02020701010101010103010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010b0c0c0501010101010101010101010a020601010101010101010101010b0202020205010101010101010101010a0206010101010101010101010b020202020202050101010101030101010a0206010101010101010101010a020202020202060101010101010101010a0206010101010101010101010a020202020202060101010101010101010a02060101010101030101010109020202020202070101010101010101010a020601010101010101010101010a0202020207010101010101010101010a02060101010101010101010101090808080701010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010301010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02020501010101010101010101010101010101010101010101010101010a02020205010101010101010101010101010101010101010101010101010a02020202050101010101010101010101010101010101010101010101010a020202020205010101010101010101010101010101010101010101010b020202020202020501010101010101010101010101010101010101010b020202020202020202050101010101010101010101010101010101010b020202020202020202020205010101010101040101010101010101010b0202020202`, img`
+    tiles.setTilemap(tiles.createTilemap(hex`1e001e0002020202020202020202020202080808080808020202020202020202020202020202020202020808080807010101010101090808080202020202020202020202020202070101010101010101010101010101010908020202020202020202020207010101010101010101010101010101010101090202020202020202020701010101010101010101030101010101010101010a020202020202020701010101010101010101010101010101010101010109020202020202070101010101010101010101010101010101010101010101090202020207010101010101010101010101010101010101010101010101010a02020701010101010103010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010b0c0c0501010101010101010101010a020601010101010101010101010b0202020205010101010101010101010a0206010101010101010101010b020202020202050101010101030101010a0206010101010101010101010a020202020202060101010101010101010a0206010101010101010101010a020202020202060101010101010101010a02060101010101030101010109020202020202070101010101010101010a020601010101010101010101010a0202020207010101010101010101010a02060101010101010101010101090808080701010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010301010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02020501010101010101010101010101010101010101010101010101010a02020205010101010101010101010101010101010101010101010101010a02020202050101010101010101010101010101010101010101010101010a020202020205010101010101010101010101010101010101010101010b020202020202020501010101040101010101010101010101010101010b020202020202020202050101010101010101010101010101010101010b020202020202020202020205010101010101010101010101010101010b0202020202`, img`
         ..............................
         ..............................
         ..............................
@@ -1864,7 +2105,7 @@ function level1 () {
         ..............................
         `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12], TileScale.Sixteen))
     scene.setBackgroundColor(9)
-    ShipInit()
+    Init_Ship()
     rowBoat()
 }
 function Fire_Cannons_West () {
@@ -1872,83 +2113,200 @@ function Fire_Cannons_West () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -100, -60)
+            `, Port_Bow_Cannon, -100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -100, 60)
+            `, Starboard_Bow_Cannon, -100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 0, 100)
+            `, Port_Cannon, 0, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 0, -100)
+            `, Starboard_Cannon, 0, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon5, 100, 0)
+            `, Stern_Cannon, 100, 0)
     } else if (Cannon_Count == 4) {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -100, -60)
+            `, Port_Bow_Cannon, -100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -100, 60)
+            `, Starboard_Bow_Cannon, -100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 0, 100)
+            `, Port_Cannon, 0, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 0, -100)
+            `, Starboard_Cannon, 0, -100)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, -100, -60)
+            `, Port_Bow_Cannon, -100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, -100, 60)
+            `, Starboard_Bow_Cannon, -100, 60)
+    }
+}
+function Fire_Cannons () {
+    if (Owns_Port_Cannon == true) {
+        if (ShipDirection == North) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Cannon, -100, 0)
+        } else if (ShipDirection == East) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Cannon, 0, -100)
+        } else if (ShipDirection == South) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Cannon, 100, 0)
+        } else if (ShipDirection == West) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Cannon, 0, 100)
+        }
+    }
+    if (Owns_Starboard_Cannon == true) {
+        if (ShipDirection == North) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Cannon, 100, 0)
+        } else if (ShipDirection == East) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Cannon, 0, 100)
+        } else if (ShipDirection == South) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Cannon, -100, 0)
+        } else if (ShipDirection == West) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Cannon, 0, -100)
+        }
+    }
+    if (Owns_Port_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Bow_Cannon, -60, -100)
+        } else if (ShipDirection == East) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Bow_Cannon, 100, -60)
+        } else if (ShipDirection == South) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Bow_Cannon, 60, 100)
+        } else if (ShipDirection == West) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Port_Bow_Cannon, -100, -60)
+        }
+    }
+    if (Owns_Starboard_Bow_Cannon == true) {
+        if (ShipDirection == North) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Bow_Cannon, 60, -100)
+        } else if (ShipDirection == East) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Bow_Cannon, 100, 60)
+        } else if (ShipDirection == South) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Bow_Cannon, -60, 100)
+        } else if (ShipDirection == West) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Starboard_Bow_Cannon, -100, 60)
+        }
+    }
+    if (Owns_Stern_Cannon == true) {
+        if (ShipDirection == North) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Stern_Cannon, 0, 100)
+        } else if (ShipDirection == East) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Stern_Cannon, -100, 0)
+        } else if (ShipDirection == South) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Stern_Cannon, 0, -100)
+        } else if (ShipDirection == West) {
+            CannonBall = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, Stern_Cannon, 100, 0)
+        }
     }
 }
 function OrientCannons_South () {
     if (Cannon_Count == 5) {
-        cannon1.setPosition(Ship.x + 5, Ship.y + 10)
-        cannon2.setPosition(Ship.x + -5, Ship.y + 10)
-        cannon3.setPosition(Ship.x + 9, Ship.y + -10)
-        cannon4.setPosition(Ship.x + -9, Ship.y + -10)
-        cannon5.setPosition(Ship.x + 0, Ship.y + -15)
+        Port_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + 10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + 10)
+        Port_Cannon.setPosition(Ship.x + 9, Ship.y + -10)
+        Starboard_Cannon.setPosition(Ship.x + -9, Ship.y + -10)
+        Stern_Cannon.setPosition(Ship.x + 0, Ship.y + -15)
     } else if (Cannon_Count == 4) {
-        cannon1.setPosition(Ship.x + 5, Ship.y + 10)
-        cannon2.setPosition(Ship.x + -5, Ship.y + 10)
-        cannon3.setPosition(Ship.x + 9, Ship.y + -10)
-        cannon4.setPosition(Ship.x + -9, Ship.y + -10)
+        Port_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + 10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + 10)
+        Port_Cannon.setPosition(Ship.x + 9, Ship.y + -10)
+        Starboard_Cannon.setPosition(Ship.x + -9, Ship.y + -10)
     } else {
-        cannon1.setPosition(Ship.x + 5, Ship.y + 10)
-        cannon2.setPosition(Ship.x + -5, Ship.y + 10)
+        Port_Bow_Cannon.setPosition(Ship.x + 5, Ship.y + 10)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -5, Ship.y + 10)
     }
 }
 function OrientCannons_West () {
     if (Cannon_Count == 5) {
-        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
-        cannon3.setPosition(Ship.x + 10, Ship.y + 9)
-        cannon4.setPosition(Ship.x + 10, Ship.y + -9)
-        cannon5.setPosition(Ship.x + 15, Ship.y + 0)
+        Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
+        Port_Cannon.setPosition(Ship.x + 10, Ship.y + 9)
+        Starboard_Cannon.setPosition(Ship.x + 10, Ship.y + -9)
+        Stern_Cannon.setPosition(Ship.x + 15, Ship.y + 0)
     } else if (Cannon_Count == 4) {
-        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
-        cannon3.setPosition(Ship.x + 10, Ship.y + 9)
-        cannon4.setPosition(Ship.x + 10, Ship.y + -9)
+        Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
+        Port_Cannon.setPosition(Ship.x + 10, Ship.y + 9)
+        Starboard_Cannon.setPosition(Ship.x + 10, Ship.y + -9)
     } else {
-        cannon1.setPosition(Ship.x + -10, Ship.y + -5)
-        cannon2.setPosition(Ship.x + -10, Ship.y + 5)
+        Port_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + -5)
+        Starboard_Bow_Cannon.setPosition(Ship.x + -10, Ship.y + 5)
     }
 }
 function Fire_Cannons_East () {
@@ -1956,49 +2314,49 @@ function Fire_Cannons_East () {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 100, -60)
+            `, Port_Bow_Cannon, 100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 100, 60)
+            `, Starboard_Bow_Cannon, 100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 0, -100)
+            `, Port_Cannon, 0, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 0, 100)
+            `, Starboard_Cannon, 0, 100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon5, -100, 0)
+            `, Stern_Cannon, -100, 0)
     } else if (Cannon_Count == 4) {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 100, -60)
+            `, Port_Bow_Cannon, 100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 100, 60)
+            `, Starboard_Bow_Cannon, 100, 60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon3, 0, -100)
+            `, Port_Cannon, 0, -100)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon4, 0, 100)
+            `, Starboard_Cannon, 0, 100)
     } else {
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon1, 100, -60)
+            `, Port_Bow_Cannon, 100, -60)
         CannonBall = sprites.createProjectileFromSprite(img`
             f f 
             f f 
-            `, cannon2, 100, 60)
+            `, Starboard_Bow_Cannon, 100, 60)
     }
 }
 let RowboatProjectile: Sprite = null
@@ -2009,25 +2367,35 @@ let MiniMap: Sprite = null
 let myMinimap: minimap.Minimap = null
 let NetReload = 0
 let Net: Sprite = null
-let cannon5: Sprite = null
-let cannon4: Sprite = null
-let cannon3: Sprite = null
-let cannon2: Sprite = null
-let cannon1: Sprite = null
 let Cannon_Count = 0
 let Ship: Sprite = null
+let Stern_Cannon: Sprite = null
+let Starboard_Bow_Cannon: Sprite = null
+let Port_Bow_Cannon: Sprite = null
+let Starboard_Cannon: Sprite = null
+let Port_Cannon: Sprite = null
 let ShipDirection = 0
+let Owns_Stern_Cannon = false
+let Owns_Starboard_Bow_Cannon = false
+let Owns_Port_Bow_Cannon = false
+let Owns_Starboard_Cannon = false
+let Owns_Port_Cannon = false
+let West = 0
+let South = 0
+let East = 0
+let North = 0
+North = 0
+East = 1
+South = 2
+West = 3
+Owns_Port_Cannon = true
+Owns_Starboard_Cannon = true
+Owns_Port_Bow_Cannon = true
+Owns_Starboard_Bow_Cannon = true
+Owns_Stern_Cannon = true
 level1()
 game.onUpdate(function () {
-    if (ShipDirection == 0) {
-        OrientCannons_North()
-    } else if (ShipDirection == 1) {
-        OrientCannons_East()
-    } else if (ShipDirection == 2) {
-        OrientCannons_South()
-    } else {
-        OrientCannons_West()
-    }
+    Orient_Cannons()
 })
 game.onUpdateInterval(1000, function () {
     for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
