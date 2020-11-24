@@ -6,6 +6,10 @@ namespace SpriteKind {
     export const Rowboat = SpriteKind.create()
     export const Treasure = SpriteKind.create()
     export const Number = SpriteKind.create()
+    export const CannonTower = SpriteKind.create()
+    export const FlagSprite = SpriteKind.create()
+    export const Dock = SpriteKind.create()
+    export const Reflag = SpriteKind.create()
 }
 function Set_Cannons () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
@@ -817,6 +821,30 @@ function OrientShip () {
         200,
         true
         )
+    }
+}
+function SunkenTreasure () {
+    for (let value of tiles.getTilesByType(myTiles.tile14)) {
+        Sunken_Treasure = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . 6 . . . . . . . . . . . . . . 
+            . . 6 6 . . . . . . . . . . . . 
+            . . . . 6 6 . . . . . . . . . . 
+            . . . . . . 6 . . . . . . . . . 
+            6 6 . . . . . 6 . . . . . 6 6 6 
+            6 6 6 . . . . 6 . 6 6 6 6 6 6 6 
+            6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
+            6 6 6 6 6 6 6 6 6 6 . . 6 6 6 . 
+            6 6 . 6 6 6 6 6 6 6 6 6 6 6 . . 
+            6 6 . . 6 6 6 6 6 6 6 6 . . . . 
+            6 6 6 6 6 6 6 6 6 6 6 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Treasure)
+        tiles.placeOnTile(Sunken_Treasure, value)
+        tiles.setTileAt(value, myTiles.tile1)
     }
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1828,6 +1856,45 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         Net.z = 7
     }
 })
+function Dock () {
+    for (let value of tiles.getTilesByType(myTiles.tile15)) {
+        Ship_Dock = sprites.create(img`
+            .................
+            .................
+            .................
+            .................
+            .................
+            .....eeeeeeeeee6.
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            .eeeeeeeeeeeeeee6
+            .eeee4444444444e6
+            .666eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....6eeeeeeeeee6.
+            `, SpriteKind.Dock)
+        tiles.placeOnTile(Ship_Dock, value)
+        tiles.setTileAt(value, myTiles.tile1)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Dock, function (sprite, otherSprite) {
+    if (EnemyCount == 0) {
+        game.over(true)
+    } else {
+        game.splash("You are not authorized to dock here")
+    }
+})
 sprites.onOverlap(SpriteKind.Rowboat, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprite.destroy(effects.ashes, 500)
     otherSprite.destroy()
@@ -1850,6 +1917,16 @@ sprites.onDestroyed(SpriteKind.Rowboat, function (sprite) {
         `, SpriteKind.Treasure)
     Treasure_Rowboat.setPosition(sprite.x, sprite.y)
     Treasure_Rowboat.z = 1
+    EnemyCount += -1
+    if (EnemyCount == 0) {
+        ReFlag()
+    }
+})
+sprites.onDestroyed(SpriteKind.CannonTower, function (sprite) {
+    EnemyCount += -1
+    if (EnemyCount == 0) {
+        ReFlag()
+    }
 })
 function NumberFun () {
     Numbers_array = [
@@ -1963,6 +2040,34 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     OrientShip()
     Set_Cannons()
 })
+function ReFlag () {
+    for (let value of sprites.allOfKind(SpriteKind.FlagSprite)) {
+        value.destroy()
+        reflag = sprites.create(img`
+            ....e121212121212f
+            ....212121212121f.
+            ....21212121212f..
+            ....2121212121f...
+            ....212121212f....
+            ....2121212121f...
+            ....21212121212f..
+            ....212121212121f.
+            ....e121212121212f
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....e.............
+            `, SpriteKind.Reflag)
+        reflag.setPosition(value.x, value.y)
+    }
+}
 function HUDsprites () {
     Integrity_HUD = sprites.create(img`
         555555555555555555555555555555
@@ -2007,6 +2112,10 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = East
     OrientShip()
     Set_Cannons()
+})
+sprites.onOverlap(SpriteKind.CannonTower, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprite.destroy(effects.ashes, 500)
+    otherSprite.destroy()
 })
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
     if (game.runtime() > ReloadCannon + 1000) {
@@ -2511,15 +2620,15 @@ sprites.onOverlap(SpriteKind.Net, SpriteKind.Treasure, function (sprite, otherSp
         Doubloons += 1
     } else if (Math.percentChance(30)) {
         Sail = sprites.create(img`
-            . . . . . e . . . . . 
-            2 1 2 1 2 e 2 1 2 1 2 
-            2 1 2 1 2 1 2 1 2 1 2 
-            2 1 2 1 2 1 2 1 2 1 2 
-            2 1 2 1 2 1 2 1 2 1 2 
-            2 1 2 1 2 1 2 1 2 1 2 
-            . 1 2 1 2 1 2 1 2 1 . 
-            . . 2 1 2 e 2 1 2 . . 
-            . . . . . e . . . . . 
+            . . . . . e f . . . . . 
+            2 1 2 1 2 e 2 1 2 1 2 f 
+            2 1 2 1 2 1 2 1 2 1 2 f 
+            2 1 2 1 2 1 2 1 2 1 2 f 
+            2 1 2 1 2 1 2 1 2 1 2 f 
+            2 1 2 1 2 1 2 1 2 1 2 f 
+            . 1 2 1 2 1 2 1 2 1 f . 
+            . . 2 1 2 e 2 1 2 f . . 
+            . . . . . e f . . . . . 
             `, SpriteKind.HUD)
         Sail.setPosition(Chest.x, Chest.y + -10)
         Sail.z = 11
@@ -2959,44 +3068,76 @@ function rowBoat () {
             `, SpriteKind.Rowboat)
         tiles.placeOnTile(RowBoat, value)
         tiles.setTileAt(value, myTiles.tile1)
+        EnemyCount += 1
     }
 }
 function level1 () {
-    tiles.setTilemap(tiles.createTilemap(hex`1e001e0002020202020202020202020202080808080808020202020202020202020202020202020202020808080807010101010101090808080202020202020202020202020202070101010101010101010101010101010908020202020202020202020207010101010101010101010101010101010101090202020202020202020701010101010101010101030101010101010101010a020202020202020701010101010101010101010101010101010101010109020202020202070101010101010101010101010101010101010101010101090202020207010101010101010101010101010101010101010101010101010a02020701010101010103010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010b0c0c0501010101010101010101010a020601010101010101010101010b0202020205010101010101010101010a0206010101010101010101010b020202020202050101010101030101010a0206010101010101010101010a020202020202060101010101010101010a0206010101010101010101010a020202020202060101010101010101010a02060101010101030101010109020202020202070101010101010101010a020601010101010101010101010a0202020207010101010101010101010a02060101010101010101010101090808080701010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010301010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02020501010101010101010101010101010101010101010101010101010a02020205010101010101010101010101010101010101010101010101010a02020202050101010101010101010101010101010101010101010101010a020202020205010101010101010101010101010101010101010101010b020202020202020501010101040101010101010101010101010101010b020202020202020202050101010101010101010101010101010101010b020202020202020202020205010101010101010101010101010101010b0202020202`, img`
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        ..............................
-        `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12], TileScale.Sixteen))
+    EnemyCount = 0
+    tiles.setTilemap(tiles.createTilemap(hex`1e001e000202020202020202020202020208080808080802020202020202020202020202020202020202080808080701010101010109080808020202020202020202020202020207010101010101010101010101010101090802020202020202020202020701010101010101010101010101010101010e090202020202020202020701010101010101010101030101010101010101010a020202020202020701010101010101010101010101010101010101010109020202020202070101010101010101010101010101010101010101010101090202020207010101010101010101010101010101010101030101010101010a02020701010101010103010101010101010101010101010101010101010a02060101010101010101010101010101010101010101010101010101010a02060101010101010101010101010b0c0c0501010101010101010101010a020601010101010101010101010b0202020205010101010101010101010a0206010101010101010101010b100202020210050101010101030101010a0206010101010101010101010a020202020202060101010101010101010a0206010101010101010101010a020202020202060101010101010101010a02060101010101030101010109020202020202060101010101010101010a0206010101010101010101010b02020202020807010101010101010e010a02060101010101010101010b02020202020701010101010101010101010a020601010101010101010b02020202020701010d01010101010101010d0a1006010101010101010b020202020207010101010101010101010101010a0206010101010101010a020202020701010101010101010101010101010a02060101010101010b02020202060101010101010101010101010101010a020601010101010b0202020202060101010101010101010101010101010a02060101010101091002020202020501010101010101010101010101010a02020501010101010902020202020205010101010101010101010101010a0202020501010101010a0202020202020501010d010101010101010d010a0202020601010101010a0202020202020205010101010101010101010b020202100601010401010a020202020202020205010101010f0101010b02020202020601010101010a0202020202020202020c0c0c0c0c0c0c0c0202020202020601010101010a020202020202020202020202021002020202020202`, img`
+        .............222222...........
+        ........22222......2222.......
+        .......2...............222....
+        ......2..................22...
+        .....2....................2...
+        ....2.....................2...
+        ...2.......................22.
+        ..2.........................2.
+        .2..........................2.
+        2...........................2.
+        2............2222...........2.
+        2...........2....2..........2.
+        2..........2......2.........2.
+        2..........2......2.........2.
+        2..........2......2.........2.
+        2..........2......2.........2.
+        2..........2.....22.........2.
+        2.........2.....2...........2.
+        2........2.....2............2.
+        2.......2.....2.............2.
+        2.......2....2..............2.
+        2......2....2...............2.
+        2.....2.....2...............2.
+        2.....2......2..............2.
+        .2.....2......2.............2.
+        ..2.....2......2............2.
+        ..2.....2.......2..........2..
+        ..2.....2........2........2...
+        ..2.....2........222222222....
+        ..2.....2.....................
+        `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16], TileScale.Sixteen))
     scene.setBackgroundColor(9)
     Init_Ship()
     rowBoat()
+    CannonTower()
+    Flag()
+    SunkenTreasure()
+    Dock()
+}
+function CannonTower () {
+    for (let value of tiles.getTilesByType(myTiles.tile13)) {
+        Cannon_Tower = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . b b . . . . . . . 
+            . . . . 6 6 6 b b 6 6 6 . . . . 
+            . . . 6 c f c c c c f c 6 . . . 
+            . . 6 c f b f f f f b f c 6 . . 
+            . . 6 f b f b b b b f b f 6 . . 
+            . . 6 c f b f c c f b f c 6 . . 
+            . b b c f b c b b c b f c b b . 
+            . b b c f b c c b c b f c b b . 
+            . . 6 c f b f c c f b f c 6 . . 
+            . . 6 f b f b b b b f b f 6 . . 
+            . . 6 c f b f f f f b f c 6 . . 
+            . . . 6 c f c c c c f c 6 . . . 
+            . . . . 6 6 6 b b 6 6 6 . . . . 
+            . . . . . . . b b . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.CannonTower)
+        tiles.placeOnTile(Cannon_Tower, value)
+        tiles.setTileAt(value, myTiles.tile1)
+        TowerHealth = 0
+        EnemyCount += 1
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -3127,6 +3268,34 @@ function Fire_Cannons () {
         }
     }
 }
+function Flag () {
+    for (let value of tiles.getTilesByType(myTiles.tile16)) {
+        FlagSprite = sprites.create(img`
+            ....e181818181818f
+            ....818181818181f.
+            ....81818181818f..
+            ....8181818181f...
+            ....818181818f....
+            ....8181818181f...
+            ....81818181818f..
+            ....818181818181f.
+            ....e181818181818f
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....ef............
+            ....e.............
+            `, SpriteKind.FlagSprite)
+        tiles.placeOnTile(FlagSprite, value)
+        tiles.setTileAt(value, myTiles.tile2)
+    }
+}
 function HUDdigits () {
     for (let value of sprites.allOfKind(SpriteKind.Number)) {
         value.destroy()
@@ -3160,7 +3329,10 @@ function HUDdigits () {
     Dubloon_First_Digit.z = 50
 }
 let RowboatProjectile: Sprite = null
+let FlagSprite: Sprite = null
 let CannonBall: Sprite = null
+let TowerHealth = 0
+let Cannon_Tower: Sprite = null
 let RowBoat: Sprite = null
 let Coins: Sprite = null
 let Sail: Sprite = null
@@ -3169,14 +3341,18 @@ let Chest: Sprite = null
 let ReloadCannon = 0
 let Doubloon_HUD: Sprite = null
 let Integrity_HUD: Sprite = null
+let reflag: Sprite = null
 let Dubloon_Second_Digit: Sprite = null
 let Dubloon_First_Digit: Sprite = null
 let Integrity_Second_Digit: Sprite = null
 let Integrity_First_Digit: Sprite = null
 let Numbers_array: Image[] = []
 let Treasure_Rowboat: Sprite = null
+let EnemyCount = 0
+let Ship_Dock: Sprite = null
 let NetReload = 0
 let Net: Sprite = null
+let Sunken_Treasure: Sprite = null
 let Ship: Sprite = null
 let Stern_Cannon: Sprite = null
 let Starboard_Bow_Cannon: Sprite = null
@@ -3351,6 +3527,17 @@ game.onUpdateInterval(1000, function () {
         }
     }
     for (let value of sprites.allOfKind(SpriteKind.Rowboat)) {
+        if (Math.abs(Ship.x - value.x) < 70 && (Math.abs(Ship.x - value.x) > 0 && (Math.abs(Ship.y - value.y) < 70 && Math.abs(Ship.y - value.y) > 0))) {
+            RowboatProjectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, value, (Ship.x - value.x) * 1.25, (Ship.y - value.y) * 1.25)
+            RowboatProjectile.setKind(SpriteKind.EnemyProjectile)
+        } else {
+        	
+        }
+    }
+    for (let value of sprites.allOfKind(SpriteKind.CannonTower)) {
         if (Math.abs(Ship.x - value.x) < 70 && (Math.abs(Ship.x - value.x) > 0 && (Math.abs(Ship.y - value.y) < 70 && Math.abs(Ship.y - value.y) > 0))) {
             RowboatProjectile = sprites.createProjectileFromSprite(img`
                 f f 
