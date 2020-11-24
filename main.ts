@@ -5,6 +5,7 @@ namespace SpriteKind {
     export const EnemyProjectile = SpriteKind.create()
     export const Rowboat = SpriteKind.create()
     export const Treasure = SpriteKind.create()
+    export const Number = SpriteKind.create()
 }
 function Set_Cannons () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
@@ -374,7 +375,7 @@ function Init_Ship () {
         tiles.placeOnRandomTile(Ship, myTiles.tile4)
         tiles.setTileAt(value, myTiles.tile1)
     }
-    ShipIntegrityHUD()
+    HUDsprites()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = North
@@ -389,6 +390,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyProjectile, function (sprit
     } else {
         Ship.destroy(effects.ashes, 500)
     }
+    HUDdigits()
 })
 function OrientShip () {
     if (ShipDirection == North) {
@@ -1849,28 +1851,158 @@ sprites.onDestroyed(SpriteKind.Rowboat, function (sprite) {
     Treasure_Rowboat.setPosition(sprite.x, sprite.y)
     Treasure_Rowboat.z = 1
 })
-function DoubloonHUD () {
-    Doubloon_HUD = sprites.create(img`
-        . . . 5 5 5 4 5 5 4 5 5 4 5 5 4 . . . 
-        . . 5 5 5 5 5 4 5 5 4 5 5 4 5 5 4 . . 
-        . 5 5 4 4 4 5 5 4 5 5 4 5 5 4 5 5 4 . 
-        5 5 4 5 4 5 4 5 5 4 5 5 4 5 5 4 5 5 4 
-        5 5 4 4 4 4 4 5 5 4 5 5 4 5 5 4 5 5 4 
-        5 5 4 5 4 5 4 5 5 4 5 5 4 5 5 4 5 5 4 
-        . 5 5 4 4 4 5 5 4 5 5 4 5 5 4 5 5 4 . 
-        . . 5 5 5 5 5 4 5 5 4 5 5 4 5 5 4 . . 
-        . . . 5 5 5 4 5 5 4 5 5 4 5 5 4 . . . 
-        `, SpriteKind.HUD)
-    Doubloon_HUD.setFlag(SpriteFlag.Ghost, true)
-    Doubloon_HUD.setFlag(SpriteFlag.RelativeToCamera, true)
-    Doubloon_HUD.setPosition(scene.screenWidth() - 149, scene.screenHeight() - 85)
-    Doubloon_HUD.z = 50
+function NumberFun () {
+    Numbers_array = [
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        . . 5 4 . 
+        . 5 5 4 . 
+        . . 5 4 . 
+        . . 5 4 . 
+        . . 5 4 . 
+        . . 5 4 . 
+        . 5 5 5 4 
+        `,
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        . . . 5 4 
+        . . 5 4 . 
+        . 5 4 . . 
+        5 4 . . . 
+        5 5 5 5 4 
+        `,
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        . . . 5 4 
+        . 5 5 4 . 
+        . . . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        5 4 . 5 4 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        5 5 5 5 4 
+        . . . 5 4 
+        . . . 5 4 
+        . . . 5 4 
+        `,
+    img`
+        5 5 5 5 4 
+        5 . . . . 
+        5 5 5 4 . 
+        . . . 5 4 
+        . . . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . . . 
+        5 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        5 5 5 5 4 
+        . . . 5 4 
+        . . . 5 4 
+        . . 5 4 . 
+        . . 5 4 . 
+        . 5 4 . . 
+        . 5 4 . . 
+        `,
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        . 5 5 4 . 
+        5 4 . 5 4 
+        5 4 . 5 4 
+        . 5 5 5 4 
+        . . . 5 4 
+        5 4 . 5 4 
+        . 5 5 4 . 
+        `,
+    img`
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        . . . . . 
+        `
+    ]
+    Integrity_First_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
+    Integrity_Second_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
+    Dubloon_First_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
+    Dubloon_Second_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = West
     OrientShip()
     Set_Cannons()
 })
+function HUDsprites () {
+    Integrity_HUD = sprites.create(img`
+        555555555555555555555555555555
+        54...........................5
+        54......ef...................5
+        54.21212e21212f..............5
+        54.21212121212f..............5
+        54.21212121212f..............5
+        54.21212121212f..............5
+        54.21212121212f..............5
+        54..121212121f...............5
+        54...212e212f................5
+        54......ef...................5
+        54...........................5
+        555555555555555555555555555555
+        `, SpriteKind.HUD)
+    Integrity_HUD.setFlag(SpriteFlag.Ghost, true)
+    Integrity_HUD.setFlag(SpriteFlag.RelativeToCamera, true)
+    Integrity_HUD.setPosition(scene.screenWidth() - 145, scene.screenHeight() - 8)
+    Integrity_HUD.z = 50
+    Doubloon_HUD = sprites.create(img`
+        555555555555555555555555555554
+        4...........................54
+        4....5554...................54
+        4...555554..................54
+        4..55444554.................54
+        4.5545454554................54
+        4.5544444554................54
+        4.5545454554................54
+        4..55444554.................54
+        4...555554..................54
+        4....5554...................54
+        4...........................54
+        555555555555555555555555555554
+        `, SpriteKind.HUD)
+    Doubloon_HUD.setFlag(SpriteFlag.Ghost, true)
+    Doubloon_HUD.setFlag(SpriteFlag.RelativeToCamera, true)
+    Doubloon_HUD.setPosition(scene.screenWidth() - 115, scene.screenHeight() - 8)
+    Doubloon_HUD.z = 51
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = East
     OrientShip()
@@ -1941,23 +2073,6 @@ function Orient_Cannons () {
             Stern_Cannon.setPosition(Ship.x + 15, Ship.y + 0)
         }
     }
-}
-function ShipIntegrityHUD () {
-    Integrity_HUD = sprites.create(img`
-        . . . . . e . . . . . 
-        2 1 2 1 2 e 2 1 2 1 2 
-        2 1 2 1 2 1 2 1 2 1 2 
-        2 1 2 1 2 1 2 1 2 1 2 
-        2 1 2 1 2 1 2 1 2 1 2 
-        2 1 2 1 2 1 2 1 2 1 2 
-        . 1 2 1 2 1 2 1 2 1 . 
-        . . 2 1 2 e 2 1 2 . . 
-        . . . . . e . . . . . 
-        `, SpriteKind.HUD)
-    Integrity_HUD.setFlag(SpriteFlag.Ghost, true)
-    Integrity_HUD.setFlag(SpriteFlag.RelativeToCamera, true)
-    Integrity_HUD.setPosition(scene.screenWidth() - 149, scene.screenHeight() - 110)
-    Integrity_HUD.z = 50
 }
 function IntegrityCheck () {
     if (Ship_Integrity < Ship_Max_Integrity) {
@@ -2818,6 +2933,7 @@ sprites.onOverlap(SpriteKind.Net, SpriteKind.Treasure, function (sprite, otherSp
         Coins.z = 11
         Doubloons += 5
     }
+    HUDdigits()
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = South
@@ -2889,6 +3005,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, other
     } else {
         Ship.destroy(effects.ashes, 500)
     }
+    HUDdigits()
 })
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     game.over(false)
@@ -3010,6 +3127,38 @@ function Fire_Cannons () {
         }
     }
 }
+function HUDdigits () {
+    for (let value of sprites.allOfKind(SpriteKind.Number)) {
+        value.destroy()
+    }
+    NumberFun()
+    if (Ship_Integrity / 10 >= 1) {
+        Integrity_First_Digit.setImage(Numbers_array[Math.trunc(Ship_Integrity / 10)])
+        Integrity_Second_Digit.setImage(Numbers_array[Ship_Integrity % 10])
+        Integrity_Second_Digit.setFlag(SpriteFlag.Ghost, true)
+        Integrity_Second_Digit.setFlag(SpriteFlag.RelativeToCamera, true)
+        Integrity_Second_Digit.setPosition(scene.screenWidth() - 135, scene.screenHeight() - 8)
+    } else {
+        Integrity_First_Digit.setImage(Numbers_array[Ship_Integrity])
+    }
+    Integrity_First_Digit.setFlag(SpriteFlag.Ghost, true)
+    Integrity_First_Digit.setFlag(SpriteFlag.RelativeToCamera, true)
+    Integrity_First_Digit.setPosition(scene.screenWidth() - 141, scene.screenHeight() - 8)
+    Integrity_First_Digit.z = 50
+    if (Doubloons / 10 >= 1) {
+        Dubloon_First_Digit.setImage(Numbers_array[Math.trunc(Doubloons / 10)])
+        Dubloon_Second_Digit.setImage(Numbers_array[Doubloons % 10])
+        Dubloon_Second_Digit.setFlag(SpriteFlag.Ghost, true)
+        Dubloon_Second_Digit.setFlag(SpriteFlag.RelativeToCamera, true)
+        Dubloon_Second_Digit.setPosition(scene.screenWidth() - 107, scene.screenHeight() - 8)
+    } else {
+        Dubloon_First_Digit.setImage(Numbers_array[Doubloons])
+    }
+    Dubloon_First_Digit.setFlag(SpriteFlag.Ghost, true)
+    Dubloon_First_Digit.setFlag(SpriteFlag.RelativeToCamera, true)
+    Dubloon_First_Digit.setPosition(scene.screenWidth() - 113, scene.screenHeight() - 8)
+    Dubloon_First_Digit.z = 50
+}
 let RowboatProjectile: Sprite = null
 let CannonBall: Sprite = null
 let RowBoat: Sprite = null
@@ -3017,9 +3166,14 @@ let Coins: Sprite = null
 let Sail: Sprite = null
 let Coin: Sprite = null
 let Chest: Sprite = null
-let Integrity_HUD: Sprite = null
 let ReloadCannon = 0
 let Doubloon_HUD: Sprite = null
+let Integrity_HUD: Sprite = null
+let Dubloon_Second_Digit: Sprite = null
+let Dubloon_First_Digit: Sprite = null
+let Integrity_Second_Digit: Sprite = null
+let Integrity_First_Digit: Sprite = null
+let Numbers_array: Image[] = []
 let Treasure_Rowboat: Sprite = null
 let NetReload = 0
 let Net: Sprite = null
@@ -3037,6 +3191,7 @@ let Owns_Starboard_Bow_Cannon = false
 let Owns_Port_Bow_Cannon = false
 let Owns_Starboard_Cannon = false
 let Owns_Port_Cannon = false
+let Doubloons = 0
 let West = 0
 let South = 0
 let East = 0
@@ -3045,7 +3200,7 @@ North = 0
 East = 1
 South = 2
 West = 3
-let Doubloons = 0
+Doubloons = 0
 Owns_Port_Cannon = true
 Owns_Starboard_Cannon = true
 Owns_Port_Bow_Cannon = false
@@ -3053,12 +3208,10 @@ Owns_Starboard_Bow_Cannon = false
 Owns_Stern_Cannon = false
 Ship_Max_Integrity = 10
 Ship_Integrity = 10
-DoubloonHUD()
+HUDdigits()
 level1()
 game.onUpdate(function () {
     Orient_Cannons()
-    Integrity_HUD.say("x" + Ship_Integrity)
-    Doubloon_HUD.say("x" + Doubloons)
 })
 game.onUpdateInterval(1000, function () {
     for (let value of sprites.allOfKind(SpriteKind.Rowboat)) {
