@@ -1856,38 +1856,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         Net.z = 7
     }
 })
-function Dock () {
-    for (let value of tiles.getTilesByType(myTiles.tile15)) {
-        Ship_Dock = sprites.create(img`
-            .................
-            .................
-            .................
-            .................
-            .................
-            .....eeeeeeeeee6.
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            .eeeeeeeeeeeeeee6
-            .eeee4444444444e6
-            .666eeeeeeeeeeee6
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            ....eeeeeeeeeeee6
-            ....e4444444444e6
-            ....6eeeeeeeeee6.
-            `, SpriteKind.Dock)
-        tiles.placeOnTile(Ship_Dock, value)
-        tiles.setTileAt(value, myTiles.tile1)
-    }
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Dock, function (sprite, otherSprite) {
     if (EnemyCount == 0) {
         game.over(true)
@@ -2034,6 +2002,38 @@ function NumberFun () {
     Integrity_Second_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
     Dubloon_First_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
     Dubloon_Second_Digit = sprites.create(Numbers_array[10], SpriteKind.Number)
+}
+function Dock2 () {
+    for (let value of tiles.getTilesByType(myTiles.tile15)) {
+        Ship_Dock = sprites.create(img`
+            .................
+            .................
+            .................
+            .................
+            .................
+            .....eeeeeeeeee6.
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            .eeeeeeeeeeeeeee6
+            .eeee4444444444e6
+            .666eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....eeeeeeeeeeee6
+            ....e4444444444e6
+            ....6eeeeeeeeee6.
+            `, SpriteKind.Dock)
+        tiles.placeOnTile(Ship_Dock, value)
+        tiles.setTileAt(value, myTiles.tile1)
+    }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     ShipDirection = West
@@ -3049,6 +3049,32 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     OrientShip()
     Set_Cannons()
 })
+function CannonTower2 () {
+    for (let value of tiles.getTilesByType(myTiles.tile13)) {
+        Cannon_Tower = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . b b . . . . . . . 
+            . . . . 6 6 6 b b 6 6 6 . . . . 
+            . . . 6 c f c c c c f c 6 . . . 
+            . . 6 c f b f f f f b f c 6 . . 
+            . . 6 f b f b b b b f b f 6 . . 
+            . . 6 c f b f c c f b f c 6 . . 
+            . b b c f b c b b c b f c b b . 
+            . b b c f b c c b c b f c b b . 
+            . . 6 c f b f c c f b f c 6 . . 
+            . . 6 f b f b b b b f b f 6 . . 
+            . . 6 c f b f f f f b f c 6 . . 
+            . . . 6 c f c c c c f c 6 . . . 
+            . . . . 6 6 6 b b 6 6 6 . . . . 
+            . . . . . . . b b . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.CannonTower)
+        tiles.placeOnTile(Cannon_Tower, value)
+        tiles.setTileAt(value, myTiles.tile1)
+        TowerHealth = 0
+        EnemyCount += 1
+    }
+}
 function rowBoat () {
     for (let value of tiles.getTilesByType(myTiles.tile3)) {
         RowBoat = sprites.create(img`
@@ -3108,36 +3134,13 @@ function level1 () {
     scene.setBackgroundColor(9)
     Init_Ship()
     rowBoat()
-    CannonTower()
     Flag()
     SunkenTreasure()
-    Dock()
+    Dock2()
+    CannonTower2()
 }
-function CannonTower () {
-    for (let value of tiles.getTilesByType(myTiles.tile13)) {
-        Cannon_Tower = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . b b . . . . . . . 
-            . . . . 6 6 6 b b 6 6 6 . . . . 
-            . . . 6 c f c c c c f c 6 . . . 
-            . . 6 c f b f f f f b f c 6 . . 
-            . . 6 f b f b b b b f b f 6 . . 
-            . . 6 c f b f c c f b f c 6 . . 
-            . b b c f b c b b c b f c b b . 
-            . b b c f b c c b c b f c b b . 
-            . . 6 c f b f c c f b f c 6 . . 
-            . . 6 f b f b b b b f b f 6 . . 
-            . . 6 c f b f f f f b f c 6 . . 
-            . . . 6 c f c c c c f c 6 . . . 
-            . . . . 6 6 6 b b 6 6 6 . . . . 
-            . . . . . . . b b . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.CannonTower)
-        tiles.placeOnTile(Cannon_Tower, value)
-        tiles.setTileAt(value, myTiles.tile1)
-        TowerHealth = 0
-        EnemyCount += 1
-    }
+function StartGame () {
+	
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -3331,9 +3334,9 @@ function HUDdigits () {
 let RowboatProjectile: Sprite = null
 let FlagSprite: Sprite = null
 let CannonBall: Sprite = null
+let RowBoat: Sprite = null
 let TowerHealth = 0
 let Cannon_Tower: Sprite = null
-let RowBoat: Sprite = null
 let Coins: Sprite = null
 let Sail: Sprite = null
 let Coin: Sprite = null
@@ -3342,6 +3345,7 @@ let ReloadCannon = 0
 let Doubloon_HUD: Sprite = null
 let Integrity_HUD: Sprite = null
 let reflag: Sprite = null
+let Ship_Dock: Sprite = null
 let Dubloon_Second_Digit: Sprite = null
 let Dubloon_First_Digit: Sprite = null
 let Integrity_Second_Digit: Sprite = null
@@ -3349,7 +3353,6 @@ let Integrity_First_Digit: Sprite = null
 let Numbers_array: Image[] = []
 let Treasure_Rowboat: Sprite = null
 let EnemyCount = 0
-let Ship_Dock: Sprite = null
 let NetReload = 0
 let Net: Sprite = null
 let Sunken_Treasure: Sprite = null
