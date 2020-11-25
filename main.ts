@@ -10,6 +10,8 @@ namespace SpriteKind {
     export const FlagSprite = SpriteKind.create()
     export const Dock = SpriteKind.create()
     export const Reflag = SpriteKind.create()
+    export const Caraval = SpriteKind.create()
+    export const CaravalProjectile = SpriteKind.create()
 }
 function Set_Cannons () {
     for (let value of sprites.allOfKind(SpriteKind.Cannon)) {
@@ -1707,6 +1709,7 @@ function level1 () {
     SunkenTreasure()
     Dock2()
     CannonTower2()
+    Caraval2()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Dock, function (sprite, otherSprite) {
     if (EnemyCount == 0) {
@@ -1724,6 +1727,68 @@ sprites.onOverlap(SpriteKind.Rowboat, SpriteKind.Projectile, function (sprite, o
     sprite.destroy(effects.ashes, 500)
     otherSprite.destroy()
 })
+function Level2 () {
+    EnemyCount = 0
+    tiles.setTilemap(tiles.createTilemap(hex`320032000202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202010801010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101020201010101010101010101010101010b010101010101010101010101010101010101010101010101010101010801010101020201010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010102020101010101010101010101010101010101010101010101010101010101010101010101010202010101010101010101010202010101010101010101010101010101010101010101020202020202010101010101010102020202020101010101010101020201010101010401010101010101010102020202020202020202020202010101010101020202020202020201010101010202020101010101010101010101010102020202020202020202020202020202020202020202020202020202020202020101020202010101010101010101010102020202020202020202020202020202020202020202020202020202020202020202020202020201010101010101010101020a0202020202020202020202020202020202020202020202020202020202020202020202020202010101010101010101010202020202020202020202020202020202020202020202020202020202020202020202020202020201010101010101010101010202020202020202020202020202020202020202020202020202020202020202020202020202020101010101010101010101020202020202020202020202020202020202020202020202020202020202020202020202020202010101010101010101010102020202020202020202020202020202020101010101020202020202020202020202020202020202010101010101010101010202020202020202020202020202020201010101010102020202020202020202020202020202020201010101010101010101020202020202020202020202020202010101010101010101010202020202020202020202020202020101010101010101010102020202020202020202020202010101010101010101010101020202020202020202020202020202010103010101010101020202020202020202020202020101010101010101010101010102020202020202020202020202020201010101010101010202020202020202020202020201010101010101010101010101010202020202020202020202020202020101010101010102020202020202020202020202010101010101010101080101010101020202020202020202020202020202010101010101010202020202020202020202020101010101010101010101010101010102020202020202020202020202020202010101010101020a020202020202020a02010101010101010101010101010101010102020202020202020202020202020202010101010101020202020202020202020101010101010101010101010101010101010202020202020202020202020202020201010101010102020202020202020101010101010101010101010101010101010101020202020202020202020202020202020101010101010102020202020201010101010101010101010101010101010101010202020202020202020202020202020202010101010101010102020202010101010101010101010101010101010101010102020a02020202020202020202020202020201010101010101010202020101010101010101010101010101010101010101010202020202020202020202020202020202020101010101010101020202010101010101010301010101010107010101010101010602020202020202020202020202020202010101030101010102020201010101010101010101010101010108010101010101010602020202020202020202020202020201010101010101010202020101010101010101010101010101010101010101010101010602020202020202020202020202020101010101010102020202010101010101010101010101010101010101010101010101010602020202020202020202020202010101010101010202020202010101010101070101010101010101010101010101010101010602020202020202020202020201010101010101020202020201010101010101010101010101010101010101010301010101010602020202020202020202020101010101010102020202020101010101010101010101010202020101010101010101010101010602020202020202020201010101010101010102020202020201010101010101010101020202020501010101010101010101010602020202020202020101010101010101010202020202020101010101010101010202020202020501010101010101010101010602020202020202010101010101010101020202020202010101010101010101020202020202020501010101010101010101010602020202020201010101010101010102020202020201010101010101010102020202020202020501010101010101010101010602020202020101010101010101010202020202020202020109010101020202020202020202020501010103010101010101010602020202010101010101010102020202020202020202020a020202020202020202020202020205010101010101010101010106020202010101010101010202020202020202020202020202020202020202020202020202020205010101010101010101010106020201030101010101020a0202020202020202020202020202020202020202020202020a02020501010101010103010101010202010101010101010202020202020202020202020101010101010101020202020202020202010101010101010101010101020201010101010101020202020202020202010101010101010101010101010202020202020201010101010101010101010102020201010101010101010102010101010101010101010101070101010101010102020202010101010101010701010101010202020101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010102020202010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010202020202010101010101010101010101010101010101010101010101010101010101010101010101010101010101010102020202020202020202020202010101010101010101010102020202020202010101010101010101010101010101020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202`, img`
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        ..................................................
+        `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile9,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17], TileScale.Sixteen))
+    scene.setBackgroundColor(9)
+    Init_Ship()
+    rowBoat()
+    Flag()
+    SunkenTreasure()
+    Dock2()
+    CannonTower2()
+}
 sprites.onDestroyed(SpriteKind.Rowboat, function (sprite) {
     Treasure_Rowboat = sprites.create(img`
         . . . . . . 
@@ -2188,6 +2253,34 @@ sprites.onOverlap(SpriteKind.CannonTower, SpriteKind.Projectile, function (sprit
     }
     otherSprite.destroy()
 })
+function Caraval2 () {
+    for (let value of tiles.getTilesByType(myTiles.tile17)) {
+        CaravalShip = sprites.create(img`
+            ..............f8..............
+            ........bb....f1..bb..........
+            ..eeeeeebbeeeef8eebbeee.......
+            .ee44444bb4444f144bb44ee......
+            .e4eeee4ff4eeef8e4ff4e4ee.....
+            .e4eeeeffffeeef1effff4e4ee....
+            .e4eeeeeeeeeeef8eeeee44e4ee...
+            .e4eeeeeeeeeeef1eeeee4e4e4ee..
+            .e4e4e4eeeeeeffffeeee44e4e4ee.
+            .e4ee4eeeeeeefeefeeee4e4e4e4e.
+            .e4e4e4eeeeeeffffeeee44e4e4ee.
+            .e4eeeeeeeeeeef1eeeee4e4e4ee..
+            .e4eeeeeeeeeeef8eeeee44e4ee...
+            .e4eeeeffffeeef1effff4e4ee....
+            .e4eeee4ff4eeef8e4ff4e4ee.....
+            .ee44444bb4444f144bb44ee......
+            ..eeeeeebbeeeef8eebbeee.......
+            ........bb....f1..bb..........
+            ..............f8..............
+            `, SpriteKind.Caraval)
+        tiles.placeOnTile(CaravalShip, value)
+        tiles.setTileAt(value, myTiles.tile1)
+        EnemyCount += 1
+    }
+}
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
     if (!(blockMenu.isMenuOpen())) {
         if (game.runtime() > ReloadCannon + 1000) {
@@ -3203,7 +3296,11 @@ function rowBoat () {
 }
 function StartGame () {
     HUDdigits()
-    level1()
+    if (Level == 1) {
+        level1()
+    } else if (Level > 1) {
+        Level2()
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -3394,7 +3491,7 @@ function HUDdigits () {
     Dubloon_First_Digit.z = 50
 }
 blockMenu.onMenuOptionSelected(function (option, index) {
-    if (blockMenu.selectedMenuOption() != "Start Game") {
+    if (blockMenu.selectedMenuOption() != "Set Sail") {
         if (blockMenu.selectedMenuOption() == "Port Cannon - 10") {
             Owns_Port_Cannon = true
             Doubloons += -10
@@ -3438,7 +3535,7 @@ blockMenu.onMenuOptionSelected(function (option, index) {
             "Forward Port Cannon - 10",
             "Forward Starboard Cannon - 10",
             "Rear Cannon - 10",
-            "Start Game"
+            "Set Sail"
             ]
         } else if (blockMenu.selectedMenuOption() == "Scurvy Dog (Normal)") {
             Survival = true
@@ -3451,7 +3548,7 @@ blockMenu.onMenuOptionSelected(function (option, index) {
             "Forward Port Cannon - 10",
             "Forward Starboard Cannon - 10",
             "Rear Cannon - 10",
-            "Start Game"
+            "Set Sail"
             ]
         }
         Shop()
@@ -3461,7 +3558,8 @@ blockMenu.onMenuOptionSelected(function (option, index) {
         StartGame()
     }
 })
-let RowboatProjectile: Sprite = null
+let Caraval_Projectile: Sprite = null
+let EnemyCannonBall: Sprite = null
 let FlagSprite2: Sprite = null
 let CannonBall: Sprite = null
 let RowBoat: Sprite = null
@@ -3474,6 +3572,7 @@ let Chest: Sprite = null
 let Survival = false
 let Adventure = false
 let ReloadCannon = 0
+let CaravalShip: Sprite = null
 let Update_Shop_1 = false
 let Shop_1: string[] = []
 let Ship_Damage = 0
@@ -3728,24 +3827,110 @@ game.onUpdateInterval(1000, function () {
     }
     for (let value13 of sprites.allOfKind(SpriteKind.Rowboat)) {
         if (Math.abs(Ship.x - value13.x) < 70 && (Math.abs(Ship.x - value13.x) > 0 && (Math.abs(Ship.y - value13.y) < 70 && Math.abs(Ship.y - value13.y) > 0))) {
-            RowboatProjectile = sprites.createProjectileFromSprite(img`
+            EnemyCannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
                 `, value13, (Ship.x - value13.x) * 1.1, (Ship.y - value13.y) * 1.1)
-            RowboatProjectile.setKind(SpriteKind.EnemyProjectile)
-        } else {
-        	
+            EnemyCannonBall.setKind(SpriteKind.EnemyProjectile)
         }
     }
     for (let value14 of sprites.allOfKind(SpriteKind.CannonTower)) {
         if (Math.abs(Ship.x - value14.x) < 80 && (Math.abs(Ship.x - value14.x) > 0 && (Math.abs(Ship.y - value14.y) < 70 && Math.abs(Ship.y - value14.y) > 0))) {
-            RowboatProjectile = sprites.createProjectileFromSprite(img`
+            EnemyCannonBall = sprites.createProjectileFromSprite(img`
                 f f 
                 f f 
                 `, value14, (Ship.x - value14.x) * 1.25, (Ship.y - value14.y) * 1.25)
-            RowboatProjectile.setKind(SpriteKind.EnemyProjectile)
+            EnemyCannonBall.setKind(SpriteKind.EnemyProjectile)
+        }
+    }
+    for (let value of sprites.allOfKind(SpriteKind.Caraval)) {
+        if (Math.abs(Ship.x - value.x) < 90 && (Math.abs(Ship.x - value.x) > 25 && (Math.abs(Ship.y - value.y) < 90 && Math.abs(Ship.y - value.y) > 25))) {
+            value.follow(Ship, 25)
+            if (value.x < Ship.x) {
+                animation.runImageAnimation(
+                value,
+                [img`
+                    ..............f8..............
+                    ........bb....f1..bb..........
+                    ..eeeeeebbeeeef8eebbeee.......
+                    .ee44444bb4444f144bb44ee......
+                    .e4eeee4ff4eeef8e4ff4e4ee.....
+                    .e4eeeeffffeeef1effff4e4ee....
+                    .e4eeeeeeeeeeef8eeeee44e4ee...
+                    .e4eeeeeeeeeeef1eeeee4e4e4ee..
+                    .e4e4e4eeeeeeffffeeee44e4e4ee.
+                    .e4ee4eeeeeeefeefeeee4e4e4e4e.
+                    .e4e4e4eeeeeeffffeeee44e4e4ee.
+                    .e4eeeeeeeeeeef1eeeee4e4e4ee..
+                    .e4eeeeeeeeeeef8eeeee44e4ee...
+                    .e4eeeeffffeeef1effff4e4ee....
+                    .e4eeee4ff4eeef8e4ff4e4ee.....
+                    .ee44444bb4444f144bb44ee......
+                    ..eeeeeebbeeeef8eebbeee.......
+                    ........bb....f1..bb..........
+                    ..............f8..............
+                    `],
+                150,
+                true
+                )
+            } else {
+                animation.runImageAnimation(
+                value,
+                [img`
+                    ..............8f..............
+                    ..........bb..1f....bb........
+                    .......eeebbee8feeeebbeeeeee..
+                    ......ee44bb441f4444bb44444ee.
+                    .....ee4e4ff4e8feee4ff4eeee4e.
+                    ....ee4e4ffffe1feeeffffeeee4e.
+                    ...ee4e44eeeee8feeeeeeeeeee4e.
+                    ..ee4e4e4eeeee1feeeeeeeeeee4e.
+                    .ee4e4e44eeeeffffeeeeee4e4e4e.
+                    .e4e4e4e4eeeefeefeeeeeee4ee4e.
+                    .ee4e4e44eeeeffffeeeeee4e4e4e.
+                    ..ee4e4e4eeeee1feeeeeeeeeee4e.
+                    ...ee4e44eeeee8feeeeeeeeeee4e.
+                    ....ee4e4ffffe1feeeffffeeee4e.
+                    .....ee4e4ff4e8feee4ff4eeee4e.
+                    ......ee44bb441f4444bb44444ee.
+                    .......eeebbee8feeeebbeeeeee..
+                    ..........bb..1f....bb........
+                    ..............8f..............
+                    `],
+                150,
+                true
+                )
+            }
         } else {
-        	
+            value.follow(null)
+        }
+    }
+    for (let value of sprites.allOfKind(SpriteKind.Caraval)) {
+        if (Math.abs(Ship.x - value.x) < 70 && (Math.abs(Ship.x - value.x) > 0 && (Math.abs(Ship.y - value.y) < 70 && Math.abs(Ship.y - value.y) > 0))) {
+            Caraval_Projectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, value, 0, -100)
+            Caraval_Projectile.setKind(SpriteKind.EnemyProjectile)
+            Caraval_Projectile.setPosition(value.x + 4, value.y)
+            Caraval_Projectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, value, 0, -100)
+            Caraval_Projectile.setPosition(value.x + -6, value.y)
+            Caraval_Projectile.setKind(SpriteKind.EnemyProjectile)
+            Caraval_Projectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, value, 0, 100)
+            Caraval_Projectile.setKind(SpriteKind.EnemyProjectile)
+            Caraval_Projectile.setPosition(value.x + 4, value.y)
+            Caraval_Projectile = sprites.createProjectileFromSprite(img`
+                f f 
+                f f 
+                `, value, 0, 100)
+            Caraval_Projectile.setPosition(value.x + -6, value.y)
+            Caraval_Projectile.setKind(SpriteKind.EnemyProjectile)
         }
     }
 })
