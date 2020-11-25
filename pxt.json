@@ -5,7 +5,8 @@
     "dependencies": {
         "device": "*",
         "animation": "*",
-        "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1"
+        "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1",
+        "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0"
     },
     "files": [
         "main.blocks",
