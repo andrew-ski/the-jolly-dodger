@@ -267,8 +267,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyProjectile, function (sprit
     if (Ship_Integrity > 1) {
         Ship_Integrity += -1
     } else {
-        Ship.destroy(effects.ashes, 500)
-        game.over(false)
+        Player_Death()
     }
     HUDdigits()
 })
@@ -1782,6 +1781,20 @@ function ReFlag () {
         reflag.setPosition(value5.x, value5.y)
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.CannonTower, function (sprite, otherSprite) {
+    if (sprites.readDataNumber(otherSprite, "Life") == 1) {
+        otherSprite.destroy(effects.ashes, 500)
+    } else {
+        otherSprite.startEffect(effects.fire)
+        sprites.changeDataNumberBy(otherSprite, "Life", -1)
+    }
+    if (Ship_Integrity > 1) {
+        Ship_Integrity += -1
+    } else {
+        Player_Death()
+    }
+    HUDdigits()
+})
 function NumberFun () {
     Numbers_array = [
     img`
@@ -2139,18 +2152,22 @@ function Shop () {
     true
     )
     ShipDirection = North
+    Ship.setPosition(80, 90)
     HUDsprites()
     HUDdigits()
-    Ship.setPosition(80, 90)
     Set_Cannons()
     Orient_Cannons()
     blockMenu.setControlsEnabled(true)
     blockMenu.setColors(4, 15)
+    if (Level == 0) {
+        Shop_1 = ["Scurvy Dog (Normal)", "Landlubber (Easy)"]
+    }
     if (Level > 1 && !(Update_Shop_1)) {
         Update_Shop_1 = true
+        Shop_1.shift()
         Shop_1.unshift("Improve Ship Armor -  " + (Ship_Max_Integrity + 4))
         Shop_1.unshift("Repair Ship - " + Ship_Damage)
-    } else if (Level > 1) {
+    } else if (Level > 0) {
         Shop_1[0] = "Repair Ship - " + Ship_Damage
     }
     blockMenu.showMenu(Shop_1, MenuStyle.List, MenuLocation.TopHalf)
@@ -2237,6 +2254,15 @@ function Orient_Cannons () {
         } else if (ShipDirection == West) {
             Stern_Cannon.setPosition(Ship.x + 15, Ship.y + 0)
         }
+    }
+}
+function Player_Death () {
+    if (Adventure == true) {
+        Ship.destroy(effects.ashes, 500)
+        Ship_Integrity = 5
+        Shop()
+    } else if (Survival == true) {
+        game.over(false)
     }
 }
 function IntegrityCheck () {
@@ -3184,8 +3210,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Rowboat, function (sprite, other
     if (Ship_Integrity > 1) {
         Ship_Integrity += -1
     } else {
-        Ship.destroy(effects.ashes, 500)
-        game.over(false)
+        Player_Death()
     }
     HUDdigits()
 })
@@ -3402,6 +3427,32 @@ blockMenu.onMenuOptionSelected(function (option, index) {
             Ship_Integrity = Ship_Max_Integrity
             Doubloons += -12
             Shop_1[index] = "Improve Ship Armor -  " + (Ship_Max_Integrity + 4)
+        } else if (blockMenu.selectedMenuOption() == "Landlubber (Easy)") {
+            Adventure = true
+            Survival = false
+            Level = 1
+            Shop_1 = [
+            "Repair Ship - " + Ship_Damage,
+            "Port Cannon - 10",
+            "Starboard Cannon - 10",
+            "Forward Port Cannon - 10",
+            "Forward Starboard Cannon - 10",
+            "Rear Cannon - 10",
+            "Start Game"
+            ]
+        } else if (blockMenu.selectedMenuOption() == "Scurvy Dog (Normal)") {
+            Survival = true
+            Adventure = false
+            Level = 1
+            Shop_1 = [
+            "Repair Ship - " + Ship_Damage,
+            "Port Cannon - 10",
+            "Starboard Cannon - 10",
+            "Forward Port Cannon - 10",
+            "Forward Starboard Cannon - 10",
+            "Rear Cannon - 10",
+            "Start Game"
+            ]
         }
         Shop()
     } else {
@@ -3420,8 +3471,11 @@ let Coins: Sprite = null
 let Sail: Sprite = null
 let Coin: Sprite = null
 let Chest: Sprite = null
+let Survival = false
+let Adventure = false
 let ReloadCannon = 0
 let Update_Shop_1 = false
+let Shop_1: string[] = []
 let Ship_Damage = 0
 let Doubloon_HUD: Sprite = null
 let Integrity_HUD: Sprite = null
@@ -3446,7 +3500,6 @@ let Port_Bow_Cannon: Sprite = null
 let Starboard_Cannon: Sprite = null
 let Port_Cannon: Sprite = null
 let ShipDirection = 0
-let Shop_1: string[] = []
 let Owns_Stern_Cannon = false
 let Owns_Starboard_Bow_Cannon = false
 let Owns_Port_Bow_Cannon = false
@@ -3460,7 +3513,25 @@ let South = 0
 let East = 0
 let North = 0
 let Level = 0
-Level = 1
+let mySprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.HUD)
+Level = 0
 North = 0
 East = 1
 South = 2
@@ -3473,14 +3544,6 @@ Owns_Starboard_Cannon = false
 Owns_Port_Bow_Cannon = false
 Owns_Starboard_Bow_Cannon = false
 Owns_Stern_Cannon = false
-Shop_1 = [
-"Port Cannon - 10",
-"Starboard Cannon - 10",
-"Forward Port Cannon - 10",
-"Forward Starboard Cannon - 10",
-"Rear Cannon - 10",
-"Start Game"
-]
 game.setDialogCursor(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -3517,7 +3580,9 @@ game.setDialogFrame(img`
     e e e e e e e e e e e e e e e 
     `)
 game.setDialogTextColor(4)
-game.showLongText("Outfit your ship with cannons", DialogLayout.Top)
+game.showLongText("Outfit your ship with cannons and sail into the heart of the enemy to take their treasure!", DialogLayout.Full)
+game.showLongText("Line up your cannons (A) and fire!", DialogLayout.Full)
+game.showLongText("Find sunken treasure and throw your net (B) to pull it in.", DialogLayout.Full)
 Shop()
 game.onUpdate(function () {
     if (!(blockMenu.isMenuOpen())) {
