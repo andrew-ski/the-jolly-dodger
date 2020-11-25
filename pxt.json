@@ -4,7 +4,6 @@
     "dependencies": {
         "device": "*",
         "animation": "*",
-        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1",
         "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1"
     },
     "files": [
