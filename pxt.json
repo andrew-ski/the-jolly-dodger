@@ -6,14 +6,16 @@
         "device": "*",
         "animation": "*",
         "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1",
-        "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0"
+        "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0",
+        "darts": "*"
     },
     "files": [
         "main.blocks",
         "main.ts",
         "README.md",
         "tilemap.g.jres",
-        "tilemap.g.ts"
+        "tilemap.g.ts",
+        null
     ],
     "testFiles": [
         "test.ts"
